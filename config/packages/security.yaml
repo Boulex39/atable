@@ -8,7 +8,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\User
-                property: email
+                property: email # ou "username" si login avec username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -16,6 +16,21 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            stateless: false              # ✅ indispensable pour garder la session
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                enable_csrf: false      # ← TEMPORAIRE pour tester
+                csrf_token_id: authenticate       # ← doit matcher le Twig
+                csrf_parameter: _csrf_token       # ← doit matcher le name du champ
+                username_parameter: email   # ✅ noms des champs du form
+                password_parameter: password
+                default_target_path: app_home  # ✅ où aller après succès (route "/")
+            logout:
+                path: app_logout
+                target: app_login   # après déconnexion -> page login
+                # where to redirect after logout
+                # target: app_any_route
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -26,6 +41,28 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+     # ✅ routes accessibles sans être connecté
+        - { path: ^/$, roles: PUBLIC_ACCESS }             # Accueil
+        - { path: ^/login, roles: PUBLIC_ACCESS }
+        - { path: ^/register, roles: PUBLIC_ACCESS }
+        - { path: ^/logout, roles: PUBLIC_ACCESS }        # nécessaire pour déclencher le logout
+        - { path: ^/recipe/?$, roles: PUBLIC_ACCESS }     # Liste des recettes (Maker => /recipe/)
+        - { path: ^/recipe/\d+$, roles: PUBLIC_ACCESS }   # Détail d’une recette (id numérique)
+        - { path: ^/recipe/new, roles: ROLE_USER }
+        - { path: ^/recipe/\d+/(edit|delete), roles: ROLE_USER }
+        - { path: ^/category, roles: ROLE_USER }   # temporaire comme tu l’as mis
+        - { path: ^/, roles: ROLE_USER }
+
+        # --- Actions protégées ---
+        - { path: ^/recipe/new, roles: ROLE_USER }
+        - { path: ^/recipe/\d+/(edit|delete), roles: ROLE_USER }
+
+        # --- Catégories : simple -> admin ---
+        # - { path: ^/category, roles: ROLE_ADMIN }
+        - { path: ^/category, roles: ROLE_USER }
+
+        # ✅ toutes les autres routes demandent d’être connecté
+        - { path: ^/, roles: ROLE_USER }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 

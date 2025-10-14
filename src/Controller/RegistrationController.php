@@ -21,18 +21,23 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var string $plainPassword */
+            // 🔒 Récupère le mot de passe "en clair"
             $plainPassword = $form->get('plainPassword')->getData();
 
-            // encode the plain password
+            // ✅ Hashage du mot de passe
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+
+            // ✅ Ajout automatique de la date de création
+            if (method_exists($user, 'setCreatedAt') && $user->getCreatedAt() === null) {
+                $user->setCreatedAt(new \DateTimeImmutable());
+            }
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
-
-            return $this->redirectToRoute('_profiler_home');
+            // ✅ Redirection après inscription
+            $this->addFlash('success', 'Votre compte a bien été créé. Vous pouvez maintenant vous connecter.');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -40,3 +45,4 @@ class RegistrationController extends AbstractController
         ]);
     }
 }
+

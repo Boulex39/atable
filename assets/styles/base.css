@@ -1,0 +1,2 @@
+/* cache la nav sur /login et /register */
+.user-area.is-hidden { display: none; }

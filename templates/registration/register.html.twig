@@ -1,22 +1,73 @@
 {% extends 'base.html.twig' %}
+{% block title %}Inscription{% endblock %}
 
-{% block title %}Register{% endblock %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('styles/auth.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h1 class="auth-title">Créer un compte</h1>
+    <p class="auth-sub">Rejoignez la communauté CookTogether.</p>
 
-    {{ form_errors(registrationForm) }}
+    {% for label, messages in app.flashes %}
+      {% for message in messages %}
+        <div class="flash">{{ message }}</div>
+      {% endfor %}
+    {% endfor %}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username, {
-            label: 'Username'
-        }) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    {{ form_start(registrationForm, { attr: { class: 'auth-form' } }) }}
 
-        <button type="submit" class="btn">Register</button>
+      {# Exemple : si tu as username dans ton RegistrationFormType #}
+      {% if registrationForm.username is defined %}
+        <div class="form-group">
+          {{ form_label(registrationForm.username, 'Pseudo') }}
+          {{ form_widget(registrationForm.username, { attr: { placeholder: 'Votre pseudo' } }) }}
+          {{ form_errors(registrationForm.username) }}
+        </div>
+      {% endif %}
+
+      <div class="form-group">
+        {{ form_label(registrationForm.email, 'Email') }}
+        {{ form_widget(registrationForm.email, { attr: { placeholder: 'ex: alex@mail.com' } }) }}
+        {{ form_errors(registrationForm.email) }}
+      </div>
+
+      {# selon ton form: plainPassword.first/second ou plainPassword #}
+      {% if registrationForm.plainPassword is defined %}
+        <div class="form-group">
+          {{ form_label(registrationForm.plainPassword, 'Mot de passe') }}
+          {{ form_widget(registrationForm.plainPassword, { attr: { placeholder: 'Mot de passe' } }) }}
+          {{ form_errors(registrationForm.plainPassword) }}
+        </div>
+      {% else %}
+        <div class="form-row">
+          <div class="form-group">
+            {{ form_label(registrationForm.plainPassword.first, 'Mot de passe') }}
+            {{ form_widget(registrationForm.plainPassword.first, { attr: { placeholder: 'Mot de passe' } }) }}
+            {{ form_errors(registrationForm.plainPassword.first) }}
+          </div>
+          <div class="form-group">
+            {{ form_label(registrationForm.plainPassword.second, 'Confirmer') }}
+            {{ form_widget(registrationForm.plainPassword.second, { attr: { placeholder: 'Confirmer' } }) }}
+            {{ form_errors(registrationForm.plainPassword.second) }}
+          </div>
+        </div>
+      {% endif %}
+
+      {{ form_rest(registrationForm) }}
+
+      <div class="auth-actions">
+        <button class="btn-primary">Créer mon compte</button>
+        <div class="auth-alt">
+          Déjà inscrit ?
+          <a href="{{ path('app_login') }}">Se connecter</a>
+        </div>
+      </div>
+
     {{ form_end(registrationForm) }}
+  </div>
+</div>
 {% endblock %}

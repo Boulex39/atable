@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}Accueil{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/home.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="container-home">
+  <h1>🍽️ À Table</h1>
+  <p>Partage et découvre des recettes.</p>
+
+  {% if app.user %}
+    {# doublon enlevé car déjà dans le header : Bienvenue … #}
+    <p>
+      <a href="{{ path('app_recipe_index') }}">Voir les recettes</a>
+      <a href="{{ path('app_recipe_new') }}">Créer une recette</a>
+      {# <a href="{{ path('app_profile') }}">Mon profil</a> #}
+      <a href="{{ path('app_logout') }}">Se déconnecter</a>
+    </p>
+  {% else %}
+    <p>
+      <a href="{{ path('app_recipe_index') }}">Voir les recettes</a>
+      <a href="{{ path('app_login') }}">Se connecter</a>
+      <a href="{{ path('app_register') }}">Créer un compte</a>
+    </p>
+  {% endif %}
+</div>
+{% endblock %}
+

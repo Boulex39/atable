@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %}Créer une recette{% endblock %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('styles/form.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="form-page">
+  <div class="card">
+    <h2>Créer une recette</h2>
+
+    {% for label, messages in app.flashes %}
+      {% for message in messages %}
+        <div class="flash-{{ label }}">{{ message }}</div>
+      {% endfor %}
+    {% endfor %}
+
+    {{ form_start(form) }}
+      <div class="form-row">{{ form_row(form.title) }}</div>
+      <div class="form-row">{{ form_row(form.description, { attr: { class: 'small' } }) }}</div>
+      <div class="form-row">{{ form_row(form.ingredients) }}</div>
+      <div class="form-row">{{ form_row(form.steps, { attr: { class: 'large' } }) }}</div>
+
+      <div class="grid-2">
+        {{ form_row(form.prepTime) }}
+        {{ form_row(form.cookTime) }}
+      </div>
+
+      <div class="form-row">{{ form_row(form.category) }}</div>
+
+      <div class="actions">
+        <button class="btn-primary">Enregistrer</button>
+        <a href="{{ path('app_recipe_index') }}" class="btn-link">Annuler</a>
+      </div>
+    {{ form_end(form) }}
+  </div>
+</div>
+{% endblock %}
+
+
