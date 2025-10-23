@@ -12,11 +12,11 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
-        ;
+            ->add('name');
+        //     ->add('createdAt', null, [
+        //         'widget' => 'single_text',
+        //     ])
+        // ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

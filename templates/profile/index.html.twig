@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil - À Table !{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('styles/profile.css') }}">
+{% endblock %}
+
+{% block body %}
+<section class="profile">
+    <div class="profile-header">
+        <h1>👤 Profil de {{ user.username ?: user.email }}</h1>
+        <p>Membre depuis le {{ user.createdAt|date('d/m/Y') }}</p>
+    </div>
+
+    <hr>
+
+    <div class="profile-info">
+        <h2>Mes informations</h2>
+        <ul>
+            <li><strong>Email :</strong> {{ user.email }}</li>
+            <li><strong>Rôle :</strong> {{ user.roles|join(', ') }}</li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <div class="profile-recipes">
+        <h2>Mes recettes publiées</h2>
+
+        {% if recipes is empty %}
+        <p>Vous n'avez pas encore publié de recette.</p>
+        {% else %}
+        <div class="recipe-grid">
+            {% for recipe in recipes %}
+            <div class="recipe-card">
+                <a href="{{ path('app_recipe_show', { id: recipe.id }) }}">
+                    {% if recipe.imageUrl %}
+                    <img src="{{ recipe.imageUrl }}" alt="{{ recipe.title }}">
+                    {% else %}
+                    <img src="{{ asset('images/no-image.png') }}" alt="Pas d’image">
+                    {% endif %}
+                </a>
+                <div class="recipe-content">
+                    <h3>{{ recipe.title }}</h3>
+                    <p>{{ recipe.description|slice(0, 80) ~ '...' }}</p>
+                    <a href="{{ path('app_recipe_show', { id: recipe.id }) }}" class="btn">Voir la recette</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

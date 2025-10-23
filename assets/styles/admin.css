@@ -1,0 +1,308 @@
+/* ===============================
+   PAGE ADMIN (Catégories + Utilisateurs)
+   Adapté à base.css pastel / moderne / responsive
+   =============================== */
+
+   /* Variables du thème */
+:root {
+  --brand: rgba(255, 182, 193, 0.85);   /* rose clair semi-transparent */
+  --brand-solid: #ffb6c1;               /* rose clair opaque */
+  --brand-dark: #e48c9b;                /* hover */
+}
+
+/* Structure principale */
+.admin-dashboard {
+  width: 92%;
+  max-width: 1100px;
+  margin: 60px auto;
+  background: var(--white);
+  padding: 50px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(6px);
+  flex: 1;
+}
+
+/* ===== TITRE PRINCIPAL ===== */
+.admin-dashboard h1 {
+  text-align: center;
+  color: var(--ink);
+  margin-bottom: 50px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* ===== BLOCS SECTIONS ===== */
+.admin-block {
+  margin-bottom: 60px;
+}
+
+.admin-block h2 {
+  color: var(--brand-dark);
+  font-size: 1.4rem;
+  margin-bottom: 25px;
+  text-align: left;
+  border-bottom: 2px solid rgba(228, 140, 155, 0.25);
+  padding-bottom: 8px;
+}
+
+/* ===== BOUTON D’AJOUT ===== */
+.actions-top {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.btn-add {
+  background-color: var(--brand-solid);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.btn-add:hover {
+  background-color: var(--brand-dark);
+  transform: translateY(-2px);
+}
+
+/* ===============================
+   TABLEAUX
+   =============================== */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+  background: var(--white);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--white);
+  border-radius: 10px;
+  overflow: hidden;
+  min-width: 700px;
+}
+
+th, td {
+  border-bottom: 1px solid #eee;
+  padding: 14px 20px;
+  text-align: left;
+}
+
+th {
+  background-color: #fafafa;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+td {
+  color: var(--ink);
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+tr:hover {
+  background-color: rgba(255, 182, 193, 0.12); /* rose clair transparent */
+  transition: background-color 0.25s ease;
+}
+
+/* ===============================
+   BOUTONS D’ACTION UNIFORMES
+   =============================== */
+
+.btn-view,
+.btn-edit,
+.btn-delete,
+.btn-small {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  text-decoration: none;
+  font-weight: 500;
+  margin-right: 8px;
+  transition: background-color 0.25s ease, transform 0.1s ease;
+  cursor: pointer;
+  border: none;
+}
+
+/* Voir : gris clair */
+.btn-view {
+  background-color: #f1f5f9;
+  color: #111;
+}
+.btn-view:hover {
+  background-color: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+/* Modifier / Supprimer / Petits boutons : rose unifié */
+.btn-edit,
+.btn-delete,
+.btn-small {
+  background-color: var(--brand-solid);
+  color: #fff;
+}
+.btn-edit:hover,
+.btn-delete:hover,
+.btn-small:hover {
+  background-color: var(--brand-dark);
+  transform: translateY(-1px);
+}
+
+/* ===============================
+   TABLE UTILISATEURS
+   =============================== */
+
+.user-table select {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  background-color: var(--white);
+  transition: border-color 0.2s;
+}
+.user-table select:focus {
+  outline: none;
+  border-color: var(--brand-dark);
+  box-shadow: 0 0 0 3px rgba(228, 140, 155, 0.2);
+}
+
+/* ===============================
+   ACCESSIBILITÉ
+   =============================== */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(228, 140, 155, 0.5);
+  outline-offset: 2px;
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+
+/* GRANDES TABLETTES (≤ 960px) */
+@media (max-width: 960px) {
+  .admin-dashboard {
+    padding: 40px 30px;
+    margin: 40px auto;
+  }
+
+  .admin-dashboard h1 {
+    font-size: 1.8rem;
+    margin-bottom: 35px;
+  }
+
+  .admin-block h2 {
+    font-size: 1.3rem;
+  }
+
+  th, td {
+    font-size: 0.9rem;
+    padding: 12px 14px;
+  }
+
+  .actions-top {
+    justify-content: center;
+  }
+
+  .btn-add {
+    font-size: 0.9rem;
+    padding: 10px 16px;
+  }
+}
+
+/* MOBILES (≤ 768px) */
+@media (max-width: 768px) {
+  .admin-dashboard {
+    padding: 28px 20px;
+    margin: 30px auto;
+  }
+
+  .admin-dashboard h1 {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+  }
+
+  .admin-block {
+    margin-bottom: 40px;
+  }
+
+  th, td {
+    font-size: 0.85rem;
+    padding: 10px 12px;
+  }
+
+  .btn-add {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+  }
+
+  .btn-view,
+  .btn-edit,
+  .btn-delete,
+  .btn-small {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+
+  .user-table select {
+    width: 100%;
+    margin-top: 5px;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+  }
+}
+
+/* PETITS TÉLÉPHONES (≤ 480px) */
+@media (max-width: 480px) {
+  .admin-dashboard {
+    padding: 20px 16px;
+  }
+
+  .admin-dashboard h1 {
+    font-size: 1.4rem;
+  }
+
+  .btn-add {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
+
+  table {
+    min-width: unset;
+  }
+
+  th, td {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+
+  .btn-view,
+  .btn-edit,
+  .btn-delete,
+  .btn-small {
+    margin-right: 4px;
+  }
+}
+
+
+
+
+

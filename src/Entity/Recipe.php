@@ -34,6 +34,9 @@ class Recipe
     #[ORM\Column]
     private ?int $cookTime = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageUrl = null;
+
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -66,11 +69,19 @@ class Recipe
     #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'recipe')]
     private Collection $favorites;
 
+    /**
+     * @var Collection<int, Vote>
+     */
+    #[ORM\OneToMany(targetEntity: Vote::class, mappedBy: 'recipe', orphanRemoval: true)]
+    private Collection $votes;
+
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->images = new ArrayCollection();
         $this->favorites = new ArrayCollection();
+        $this->votes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,6 +158,17 @@ class Recipe
     {
         $this->cookTime = $cookTime;
 
+        return $this;
+    }
+
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+
+    public function setImageUrl(?string $imageUrl): static
+    {
+        $this->imageUrl = $imageUrl;
         return $this;
     }
 
@@ -286,5 +308,50 @@ class Recipe
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Vote>
+     */
+    public function getVotes(): Collection
+    {
+        return $this->votes;
+    }
+
+    public function addVote(Vote $vote): static
+    {
+        if (!$this->votes->contains($vote)) {
+            $this->votes->add($vote);
+            $vote->setRecipe($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVote(Vote $vote): static
+    {
+        if ($this->votes->removeElement($vote)) {
+            // si le vote appartient encore à cette recette, on le détache
+            if ($vote->getRecipe() === $this) {
+                $vote->setRecipe(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    public function getAverageRating(): float
+    {
+        if ($this->votes->isEmpty()) {
+            return 0;
+        }
+
+        $sum = 0;
+        foreach ($this->votes as $vote) {
+            $sum += $vote->getValue();
+        }
+
+        return round($sum / count($this->votes), 1);
     }
 }

@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use App\Entity\Comment;
+use App\Form\CommentType;
 
 #[Route('/recipe')]
 final class RecipeController extends AbstractController
@@ -30,7 +32,7 @@ final class RecipeController extends AbstractController
     {
         $recipe = new Recipe();
 
-        // Si ton entité possède ces setters, on initialise proprement
+        // Initialisation
         if (method_exists($recipe, 'setCreatedAt') && null === $recipe->getCreatedAt()) {
             $recipe->setCreatedAt(new \DateTimeImmutable());
         }
@@ -42,32 +44,72 @@ final class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // ✅ Gestion de l’upload
+            $imageFile = $form->get('imageFile')->getData();
+
+            if ($imageFile) {
+                // nom de fichier unique
+                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+
+                // déplace le fichier dans /public/uploads/recipes
+                $imageFile->move(
+                    $this->getParameter('kernel.project_dir') . '/public/uploads/recipes',
+                    $newFilename
+                );
+
+                // enregistre le chemin relatif
+                $recipe->setImageUrl('uploads/recipes/' . $newFilename);
+            }
+
             $entityManager->persist($recipe);
             $entityManager->flush();
 
             $this->addFlash('success', 'Recette créée avec succès.');
-            // UX: redirige vers la fiche de la recette
-            return $this->redirectToRoute('app_recipe_show', ['id' => $recipe->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_recipe_show', ['id' => $recipe->getId()]);
         }
 
         return $this->render('recipe/new.html.twig', [
-            'recipe' => $recipe,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_recipe_show', methods: ['GET'])]
-    public function show(Recipe $recipe): Response
+
+    #[Route('/{id}', name: 'app_recipe_show', methods: ['GET', 'POST'])]
+    public function show(Request $request, Recipe $recipe, EntityManagerInterface $em): Response
     {
+        $comments = $em->getRepository(Comment::class)
+            ->findBy(['recipe' => $recipe], ['createdAt' => 'DESC']);
+
+        $formView = null;
+        if ($this->getUser()) {
+            $comment = new Comment();
+            $form = $this->createForm(CommentType::class, $comment);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $comment->setRecipe($recipe);
+                $comment->setUser($this->getUser());
+
+                $em->persist($comment);
+                $em->flush();
+
+                $this->addFlash('success', 'Commentaire publié.');
+                return $this->redirectToRoute('app_recipe_show', ['id' => $recipe->getId()]);
+            }
+
+            $formView = $form->createView();
+        }
+
         return $this->render('recipe/show.html.twig', [
-            'recipe' => $recipe,
+            'recipe'   => $recipe,
+            'comments' => $comments,
+            'form'     => $formView,
         ]);
     }
 
     #[Route('/{id}/edit', name: 'app_recipe_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Recipe $recipe, EntityManagerInterface $entityManager): Response
     {
-        // Propriétaire ou admin uniquement
         $user = $this->getUser();
         $isAdmin = $this->isGranted('ROLE_ADMIN');
         $isOwner = method_exists($recipe, 'getAuthor')
@@ -83,9 +125,22 @@ final class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form->get('imageFile')->getData();
+
+            if ($imageFile) {
+                $newFilename = uniqid() . '.' . $imageFile->guessExtension();
+                $imageFile->move(
+                    $this->getParameter('kernel.project_dir') . '/public/uploads/recipes',
+                    $newFilename
+                );
+                $recipe->setImageUrl('/uploads/recipes/' . $newFilename);
+            }
+
             $entityManager->flush();
             $this->addFlash('success', 'Recette mise à jour.');
-            return $this->redirectToRoute('app_recipe_show', ['id' => $recipe->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_recipe_show', ['id' => $recipe->getId()]);
         }
 
         return $this->render('recipe/edit.html.twig', [
@@ -97,7 +152,6 @@ final class RecipeController extends AbstractController
     #[Route('/{id}', name: 'app_recipe_delete', methods: ['POST'])]
     public function delete(Request $request, Recipe $recipe, EntityManagerInterface $entityManager): Response
     {
-        // Propriétaire ou admin uniquement
         $user = $this->getUser();
         $isAdmin = $this->isGranted('ROLE_ADMIN');
         $isOwner = method_exists($recipe, 'getAuthor')
@@ -113,8 +167,10 @@ final class RecipeController extends AbstractController
             $entityManager->remove($recipe);
             $entityManager->flush();
             $this->addFlash('success', 'Recette supprimée.');
+        } else {
+            $this->addFlash('error', 'Jeton CSRF invalide.');
         }
 
-        return $this->redirectToRoute('app_recipe_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_recipe_index');
     }
 }

@@ -23,9 +23,14 @@ class Vote
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'votes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Recipe $recipe = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -79,4 +84,5 @@ class Vote
 
         return $this;
     }
+
 }

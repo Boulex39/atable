@@ -1,54 +1,79 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-      {% block title %}À table!!!{% endblock %}
-    </title>
 
-    {# CSS global (header, footer…) #}
-    <link rel="stylesheet" href="{{ asset('styles/base.css') }}">
-    {% block stylesheets %}{% endblock %}
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    {% block title %}À table!{% endblock %}
+  </title>
 
-  <body>
-    {# ✅ Déclaration de la variable AVANT d’utiliser isAuthRoute #}
+  {# CSS global (header, footer…) #}
+  <link rel="stylesheet" href="{{ asset('styles/base.css') }}">
+  {% block stylesheets %}{% endblock %}
+</head>
+
+<body>
+  <div class="page-wrapper"> {# ✅ Ajouté pour gérer le footer sticky #}
+
     {% set route = app.request.attributes.get('_route') %}
     {% set isAuthRoute = route in ['app_login', 'app_register'] %}
 
     {# ---------- HEADER ---------- #}
     <header class="site-header">
       <div class="logo-area">
-        <img src="{{ asset('images/logo.png') }}" alt="Logo À table!!!">
-        <h1><a href="{{ path('app_home') }}">À table!!!</a></h1>
+        <a href="{{ path('app_home') }}" class="logo-link">
+          <img src="{{ asset('images/logo.png') }}" alt="Logo À table" class="site-logo">
+        </a>
       </div>
 
-      {# ✅ On utilise la classe dynamique ici #}
+      {% if route not in ['app_login', 'app_register'] %}
+      <form action="{{ path('app_search') }}" method="get" class="search-form">
+        <input type="text" name="query" placeholder="Rechercher une recette..." value="{{ app.request.get('query') }}">
+        <button type="submit">🔍</button>
+      </form>
+      {% endif %}
+
       <nav class="user-area {{ isAuthRoute ? 'is-hidden' : '' }}">
         {% if app.user %}
-          <span>Bienvenue <strong>{{ app.user.username ?: app.user.email }}</strong></span>
-          {# <a href="{{ path('app_profile') }}">Mon profil</a> #}
-          <a href="{{ path('app_logout') }}">Déconnexion</a>
+        <span>
+          Bienvenue
+          <a href="{{ path('app_profile') }}" class="profile-link">
+            <strong>{{ app.user.username ?: app.user.email }}</strong>
+          </a>
+        </span>
+
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_admin_dashboard') }}" class="admin-link">Espace Admin</a>
+        {% endif %}
+
+
+        <a href="{{ path('app_logout') }}">Déconnexion</a>
+
         {% else %}
-          <a href="{{ path('app_login') }}">Connexion</a>
-          <a href="{{ path('app_register') }}">Inscription</a>
+        <a href="{{ path('app_login') }}">Connexion</a>
+        <a href="{{ path('app_register') }}">Inscription</a>
         {% endif %}
       </nav>
     </header>
 
     <main class="site-main">
+      {% for label, messages in app.flashes %}
+      {% for m in messages %}
+      <div class="flash-{{ label }}">{{ m }}</div>
+      {% endfor %}
+      {% endfor %}
+
       {% block body %}{% endblock %}
     </main>
 
     <footer class="site-footer">
       <p>
-        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="footer-logo">
-        © {{ "now"|date("Y") }} À table!!! — Tous droits réservés.
+        © {{ "now"|date("Y") }} À table ! — Tous droits réservés.
       </p>
     </footer>
 
-    {% block javascripts %}{% endblock %}
-  </body>
-</html>
+  </div> {# ✅ fin du wrapper #}
+</body>
 
+</html>

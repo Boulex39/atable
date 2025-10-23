@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Category{% endblock %}
+{% block title %}Nouvelle catégorie{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('styles/admin.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Category</h1>
+<section class="admin-dashboard">
+  <h1>Ajouter une catégorie</h1>
 
-    {{ include('category/_form.html.twig') }}
+  {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">Créer</button>
+  {{ form_end(form) }}
 
-    <a href="{{ path('app_category_index') }}">back to list</a>
+  <a href="{{ path('app_admin_dashboard') }}" class="back-link">← Retour au dashboard</a>
+</section>
 {% endblock %}

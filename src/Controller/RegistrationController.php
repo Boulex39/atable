@@ -32,6 +32,9 @@ class RegistrationController extends AbstractController
                 $user->setCreatedAt(new \DateTimeImmutable());
             }
 
+            // ✅ Attribuer le rôle ROLE_USER par défaut
+            $user->setRoles(['ROLE_USER']);
+
             $entityManager->persist($user);
             $entityManager->flush();
 

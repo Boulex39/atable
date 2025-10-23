@@ -1,0 +1,194 @@
+/* ===============================
+   PAGE EDIT RECIPE
+   =============================== */
+
+body {
+  background-color: var(--bg);
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: var(--ink);
+  margin: 0;
+  padding: 0;
+}
+
+/* ====== Conteneur principal ====== */
+.edit-recipe {
+  max-width: 800px;
+  margin: 50px auto;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  padding: 40px 30px;
+}
+
+/* ====== Titre ====== */
+.edit-recipe h1 {
+  text-align: center;
+  color: var(--ink);
+  font-size: 2rem;
+  margin-bottom: 35px;
+  font-weight: 700;
+}
+
+/* ====== Formulaire ====== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Champs texte / textarea / select */
+form input[type="text"],
+form input[type="number"],
+form input[type="file"],
+form textarea,
+form select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus {
+  outline: none;
+  border-color: var(--brand-dark);
+  box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.3);
+}
+
+/* Labels */
+form label {
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+/* ====== Boutons ====== */
+button,
+.btn {
+  background: var(--brand-solid);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  align-self: flex-end;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+button:hover,
+.btn:hover {
+  background: var(--brand-dark);
+  transform: translateY(-1px);
+}
+
+/* Bouton retour */
+a.back-link {
+  display: inline-block;
+  margin-top: 25px;
+  color: var(--brand-dark);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+a.back-link:hover {
+  color: var(--brand);
+  text-decoration: underline;
+}
+
+/* ====== Bouton de suppression ====== */
+form button.btn-danger {
+  background: #ef4444;
+  color: white;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+form button.btn-danger:hover {
+  background: #dc2626;
+}
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+
+/* Tablette ≤ 992px */
+@media (max-width: 992px) {
+  .edit-recipe {
+    padding: 35px 25px;
+    margin: 40px auto;
+  }
+
+  .edit-recipe h1 {
+    font-size: 1.8rem;
+  }
+
+  button,
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Mobile ≤ 768px */
+@media (max-width: 768px) {
+  .edit-recipe {
+    padding: 25px 18px;
+    margin: 30px auto;
+  }
+
+  .edit-recipe h1 {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+  }
+
+  form {
+    gap: 14px;
+  }
+
+  form input,
+  form textarea,
+  form select {
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
+
+  button,
+  .btn {
+    font-size: 0.95rem;
+    padding: 10px 16px;
+  }
+
+  a.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+  }
+}
+
+/* Petits écrans ≤ 480px */
+@media (max-width: 480px) {
+  .edit-recipe {
+    padding: 20px 15px;
+  }
+
+  .edit-recipe h1 {
+    font-size: 1.4rem;
+  }
+
+  button,
+  .btn {
+    font-size: 0.9rem;
+    padding: 9px 14px;
+  }
+}

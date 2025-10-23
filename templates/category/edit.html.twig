@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Category{% endblock %}
+{% block title %}Modifier la catégorie{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('styles/admin.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Category</h1>
+<section class="admin-dashboard">
+  <h1>Modifier la catégorie</h1>
 
-    {{ include('category/_form.html.twig', {'button_label': 'Update'}) }}
+  {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="btn">Mettre à jour</button>
+  {{ form_end(form) }}
 
-    <a href="{{ path('app_category_index') }}">back to list</a>
-
-    {{ include('category/_delete_form.html.twig') }}
+  <a href="{{ path('app_category_index') }}" class="back-link">← Retour à la liste</a>
+</section>
 {% endblock %}

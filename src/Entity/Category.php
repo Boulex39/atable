@@ -29,6 +29,7 @@ class Category
 
     public function __construct()
     {
+        $this->createdAt = new \DateTimeImmutable();
         $this->recipes = new ArrayCollection();
     }
 

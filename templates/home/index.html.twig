@@ -1,31 +1,49 @@
 {% extends 'base.html.twig' %}
-{% block title %}Accueil{% endblock %}
+
+{% block title %}Accueil - À Table !{% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('styles/home.css') }}">
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('styles/home.css') }}">
 {% endblock %}
 
 {% block body %}
-<div class="container-home">
-  <h1>🍽️ À Table</h1>
-  <p>Partage et découvre des recettes.</p>
+<section class="home">
+  <h1>Bienvenue sur <span>À Table !</span></h1>
+  <p class="subtitle">Découvrez nos meilleures recettes partagées par la communauté</p>
 
   {% if app.user %}
-    {# doublon enlevé car déjà dans le header : Bienvenue … #}
-    <p>
-      <a href="{{ path('app_recipe_index') }}">Voir les recettes</a>
-      <a href="{{ path('app_recipe_new') }}">Créer une recette</a>
-      {# <a href="{{ path('app_profile') }}">Mon profil</a> #}
-      <a href="{{ path('app_logout') }}">Se déconnecter</a>
-    </p>
-  {% else %}
-    <p>
-      <a href="{{ path('app_recipe_index') }}">Voir les recettes</a>
-      <a href="{{ path('app_login') }}">Se connecter</a>
-      <a href="{{ path('app_register') }}">Créer un compte</a>
-    </p>
-  {% endif %}
-</div>
-{% endblock %}
+  <div class="add-recipe-container">
+    <a href="{{ path('app_recipe_new') }}" class="btn btn-add">Ajouter une recette</a>
+  </div>
+{% endif %}
 
+  <div class="recipe-grid">
+    {% for recipe in recipes %}
+    <div class="recipe-card">
+      <a href="{{ path('app_recipe_show', { id: recipe.id }) }}">
+        {% if recipe.imageUrl %}
+        <img src="{{ recipe.imageUrl }}" alt="{{ recipe.title }}">
+        {% else %}
+        <div class="no-image">Pas d’image</div>
+        {% endif %}
+
+      </a>
+      <div class="recipe-content">
+        <h2>{{ recipe.title }}</h2>
+        <p>{{ recipe.description|slice(0, 90) ~ '...' }}</p>
+        <div class="recipe-meta">
+          <span>⏱️ {{ recipe.prepTime + recipe.cookTime }} min</span>
+          {% if recipe.category %}
+          <span class="category">{{ recipe.category.name }}</span>
+          {% endif %}
+        </div>
+        <a href="{{ path('app_recipe_show', { id: recipe.id }) }}" class="btn">Voir la recette</a>
+      </div>
+    </div>
+    {% else %}
+    <p>Aucune recette publiée pour le moment.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

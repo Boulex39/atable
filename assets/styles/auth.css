@@ -128,3 +128,13 @@ input[type="password"]:focus {
 }
 
 .auth-alt a:hover { text-decoration: underline; }
+
+.auth-card button,
+.auth-card .btn-primary{
+  background: var(--brand);
+}
+.auth-card button:hover,
+.auth-card .btn-primary:hover{
+  background: var(--brand-dark);
+}
+

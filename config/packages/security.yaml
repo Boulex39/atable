@@ -41,30 +41,24 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-     # ✅ routes accessibles sans être connecté
-        - { path: ^/$, roles: PUBLIC_ACCESS }             # Accueil
-        - { path: ^/login, roles: PUBLIC_ACCESS }
-        - { path: ^/register, roles: PUBLIC_ACCESS }
-        - { path: ^/logout, roles: PUBLIC_ACCESS }        # nécessaire pour déclencher le logout
-        - { path: ^/recipe/?$, roles: PUBLIC_ACCESS }     # Liste des recettes (Maker => /recipe/)
-        - { path: ^/recipe/\d+$, roles: PUBLIC_ACCESS }   # Détail d’une recette (id numérique)
-        - { path: ^/recipe/new, roles: ROLE_USER }
-        - { path: ^/recipe/\d+/(edit|delete), roles: ROLE_USER }
-        - { path: ^/category, roles: ROLE_USER }   # temporaire comme tu l’as mis
-        - { path: ^/, roles: ROLE_USER }
+    # ✅ Routes publiques (aucune connexion requise)
+    - { path: ^/$, roles: PUBLIC_ACCESS }                 # Accueil
+    - { path: ^/recherche, roles: PUBLIC_ACCESS }         # Page de recherche
+    - { path: ^/login, roles: PUBLIC_ACCESS }             # Connexion
+    - { path: ^/register, roles: PUBLIC_ACCESS }          # Inscription
+    - { path: ^/logout, roles: PUBLIC_ACCESS }            # Déconnexion publique (technique)
+    - { path: ^/recipe/?$, roles: PUBLIC_ACCESS }         # Liste des recettes
+    - { path: ^/recipe/\d+$, roles: PUBLIC_ACCESS }       # Détail d’une recette
 
-        # --- Actions protégées ---
-        - { path: ^/recipe/new, roles: ROLE_USER }
-        - { path: ^/recipe/\d+/(edit|delete), roles: ROLE_USER }
+    # 🔒 Routes protégées
+    - { path: ^/recipe/new, roles: ROLE_USER }
+    - { path: ^/recipe/\d+/(edit|delete), roles: ROLE_USER }
+    - { path: ^/category, roles: ROLE_USER }
+    - { path: ^/profil, roles: ROLE_USER }
 
-        # --- Catégories : simple -> admin ---
-        # - { path: ^/category, roles: ROLE_ADMIN }
-        - { path: ^/category, roles: ROLE_USER }
+    # 🚫 Tout le reste nécessite d'être connecté
+    - { path: ^/, roles: ROLE_USER }
 
-        # ✅ toutes les autres routes demandent d’être connecté
-        - { path: ^/, roles: ROLE_USER }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
     security:

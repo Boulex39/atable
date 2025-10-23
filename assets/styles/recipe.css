@@ -1,0 +1,350 @@
+/* ===============================
+   PAGE RECIPE (show.html.twig)
+   =============================== */
+
+body {
+  background-color: var(--bg);
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: var(--ink);
+  margin: 0;
+  padding: 0;
+}
+
+/* ====== Titre ====== */
+h1 {
+  text-align: center;
+  color: var(--ink);
+  margin: 25px 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* ====== Image de recette ====== */
+.recipe-image-container {
+  text-align: center;
+  margin: 30px 0 25px;
+}
+
+.recipe-image {
+  display: inline-block;
+  width: 90%;
+  max-width: 900px;
+  height: auto;
+  max-height: 450px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+}
+
+/* ====== Tableau principal ====== */
+.table {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto 30px;
+  border-collapse: collapse;
+  background-color: var(--white);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.table th {
+  background-color: rgba(255, 255, 255, 0.6);
+  font-weight: 600;
+  width: 200px;
+  color: var(--muted);
+}
+
+.table td {
+  color: var(--ink);
+}
+
+/* ====== Liens ====== */
+a {
+  color: var(--brand-dark);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--brand);
+  text-decoration: underline;
+}
+
+/* ====== Boutons ====== */
+.btn,
+button {
+  background-color: var(--brand-solid);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 8px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn:hover,
+button:hover {
+  background-color: var(--brand-dark);
+  transform: translateY(-1px);
+}
+
+/* ====== Section des commentaires ====== */
+h3 {
+  text-align: center;
+  margin-top: 50px;
+  color: var(--ink);
+  font-size: 1.5rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+ul li {
+  background: var(--white);
+  padding: 14px;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
+  margin-bottom: 15px;
+}
+
+ul li strong {
+  color: var(--brand-dark);
+}
+
+.comment-meta {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+/* ====== Formulaire d’ajout de commentaire ====== */
+form {
+  max-width: 600px;
+  margin: 20px auto 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+button.btn-primary {
+  align-self: flex-end;
+}
+
+/* ====== Message quand non connecté ====== */
+p a {
+  color: var(--brand-dark);
+  font-weight: 600;
+}
+
+/* ====== Notation (étoiles) ====== */
+.rating {
+  text-align: center;
+  margin: 15px 0 25px;
+}
+
+.stars {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 4px;
+}
+
+.star {
+  background: none;
+  border: none;
+  font-size: 3rem;
+  color: #ccc;              /* ⭐ gris par défaut */
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.1s ease;
+}
+
+/* Survol = rose plus foncé, bien visible */
+.star:hover {
+  color: #d96c84;           /* ⭐ rose plus soutenu visible */
+  transform: scale(1.05);
+}
+
+/* Sélectionnée = rose moyen (vote enregistré) */
+.star.selected {
+  color: #e48c9b;
+}
+
+/* Moyenne (étoiles dorées pour moyenne) */
+.star.average {
+  color: #fcb900;
+}
+
+.rating-info {
+  font-size: 0.95rem;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+
+/* ====== Actions boutons ====== */
+.recipe-actions {
+  text-align: center;
+  margin: 25px 0 40px;
+}
+
+.recipe-actions a {
+  margin: 0 6px;
+}
+
+/* ===============================
+   RESPONSIVE (mobile / tablette)
+   =============================== */
+
+/* Tablettes ≤ 992px */
+@media (max-width: 992px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .recipe-image {
+    width: 95%;
+    max-height: 380px;
+  }
+
+  .table {
+    width: 95%;
+  }
+
+  form {
+    width: 92%;
+  }
+
+  ul {
+    width: 92%;
+  }
+
+  .stars {
+    flex-wrap: nowrap;          
+  }
+
+  .star {
+    font-size: 1.8rem;
+  }
+}
+
+/* Mobiles ≤ 768px */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.6rem;
+    margin-top: 20px;
+  }
+
+  .recipe-image {
+    width: 95%;
+    max-height: 300px;
+    border-radius: 10px;
+  }
+
+  .table {
+    width: 95%;
+    box-shadow: none;
+    border-radius: 8px;
+  }
+
+  .table th,
+  .table td {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+  }
+
+  /* Table en mode “fiche” sur mobile */
+  .table tr {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .table th {
+    background: transparent;
+    color: #666;
+    padding-bottom: 4px;
+  }
+
+  .table td {
+    padding-top: 0;
+  }
+
+  ul li {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  textarea {
+    min-height: 90px;
+    font-size: 1rem;
+  }
+
+  .btn,
+  button {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 1rem;
+  }
+
+  .star {
+    font-size: 1.6rem;
+  }
+}
+
+/* Petits écrans ≤ 480px */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  .table th,
+  .table td {
+    font-size: 0.9rem;
+  }
+
+  ul li {
+    padding: 10px;
+  }
+
+  textarea {
+    min-height: 80px;
+  }
+
+  .btn,
+  button {
+    font-size: 0.9rem;
+    padding: 10px 12px;
+  }
+
+  .star {
+    font-size: 1.4rem;
+  }
+}

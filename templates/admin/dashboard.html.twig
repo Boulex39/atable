@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace d'administration - À Table !{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('styles/admin.css') }}">
+{% endblock %}
+
+{% block body %}
+<section class="admin-dashboard">
+
+    <h1>Espace d’administration</h1>
+
+    <div class="admin-sections">
+
+        {# --- GESTION DES CATÉGORIES --- #}
+        <div class="admin-block">
+            <h2>Gestion des catégories</h2>
+
+            <div class="actions-top">
+                <a href="{{ path('app_category_new') }}" class="btn btn-add">Nouvelle catégorie</a>
+            </div>
+
+            <table class="category-table">
+                <thead>
+                    <tr>
+                        {# <th>ID</th> #}
+                        <th>Nom</th>
+                        <th>Date de création</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                    <tr>
+                        {# <td>{{ category.id }}</td> #}
+                        <td>{{ category.name }}</td>
+                        <td>{{ category.createdAt ? category.createdAt|date('d/m/Y H:i') : '—' }}</td>
+                        <td>
+                            <a href="{{ path('app_category_edit', {'id': category.id}) }}"
+                                class="btn btn-edit">Modifier</a>
+                            <form method="post" action="{{ path('app_category_delete', {'id': category.id}) }}"
+                                style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                                <button class="btn btn-delete"
+                                    onclick="return confirm('Supprimer cette catégorie ?')">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4">Aucune catégorie enregistrée.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+
+        {# --- GESTION DES UTILISATEURS --- #}
+        <div class="admin-block">
+            <h2>Gestion des utilisateurs</h2>
+
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        {# <th>ID</th> #}
+                        <th>Email</th>
+                        <th>Pseudo</th>
+                        <th>Rôle actuel</th>
+                        <th>Changer le rôle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        {# <td>{{ user.id }}</td> #}
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.username ?: '—' }}</td>
+                        <td>{{ user.roles|join(', ') }}</td>
+                        <td>
+                            <form method="post" action="{{ path('app_admin_change_role', {id: user.id}) }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('change_role' ~ user.id) }}">
+                                <select name="role">
+                                    <option value="ROLE_USER" {{ 'ROLE_USER' in user.roles ? 'selected' }}>Utilisateur
+                                    </option>
+                                    <option value="ROLE_ADMIN" {{ 'ROLE_ADMIN' in user.roles ? 'selected' }}>
+                                        Administrateur</option>
+                                </select>
+                                <button class="btn btn-small">Mettre à jour</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">Aucun utilisateur trouvé.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
+{% endblock %}
