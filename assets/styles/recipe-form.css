@@ -1,0 +1,147 @@
+/* ===============================
+   FORMULAIRE DE RECETTE
+   =============================== */
+
+.recipe-form {
+  max-width: 900px;
+  margin: 60px auto;
+  background: var(--white);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.recipe-form h1 {
+  text-align: center;
+  color: var(--ink);
+  margin-bottom: 40px;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* === STRUCTURE === */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* === CHAMPS === */
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: var(--muted);
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+.input-field,
+.select-field,
+.textarea-field,
+.file-input {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: #fff;
+  color: var(--ink);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-field:focus,
+.select-field:focus,
+.textarea-field:focus,
+.file-input:focus {
+  outline: none;
+  border-color: var(--brand-dark);
+  box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.3);
+}
+
+/* === Textareas scrollables === */
+.textarea-field.scrollable {
+  resize: none;
+  min-height: 120px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+/* === Fichier === */
+.file-input {
+  background-color: #fff0f5;
+  border: 2px dashed var(--brand-dark);
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.file-input:hover {
+  background-color: #ffe4ec;
+  border-color: var(--brand);
+}
+
+/* === Boutons === */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 40px;
+}
+
+.btn-primary {
+  background: var(--brand-solid);
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+  background: var(--brand-dark);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #f1f5f9;
+  color: var(--ink);
+  padding: 10px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+.btn-secondary:hover {
+  background: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .recipe-form {
+    padding: 25px;
+  }
+
+  .recipe-form h1 {
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}

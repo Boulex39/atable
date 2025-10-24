@@ -1,42 +1,70 @@
 {% extends 'base.html.twig' %}
-{% block title %}Créer une recette{% endblock %}
+
+{% block title %}Nouvelle recette - À Table !{% endblock %}
 
 {% block stylesheets %}
   {{ parent() }}
-  <link rel="stylesheet" href="{{ asset('styles/form.css') }}">
+  <link rel="stylesheet" href="{{ asset('styles/recipe-form.css') }}">
 {% endblock %}
 
 {% block body %}
-<div class="form-page">
-  <div class="card">
-    <h2>Créer une recette</h2>
+<section class="recipe-form">
+  <h1>Créer une nouvelle recette 🍳</h1>
 
-    {% for label, messages in app.flashes %}
-      {% for message in messages %}
-        <div class="flash-{{ label }}">{{ message }}</div>
-      {% endfor %}
-    {% endfor %}
+  {{ form_start(form) }}
+  
+  <div class="form-grid">
+    <div class="form-group">
+      {{ form_label(form.title, 'Titre de la recette') }}
+      {{ form_widget(form.title, {'attr': {'class': 'input-field'}}) }}
+    </div>
 
-    {{ form_start(form) }}
-      <div class="form-row">{{ form_row(form.title) }}</div>
-      <div class="form-row">{{ form_row(form.description, { attr: { class: 'small' } }) }}</div>
-      <div class="form-row">{{ form_row(form.ingredients) }}</div>
-      <div class="form-row">{{ form_row(form.steps, { attr: { class: 'large' } }) }}</div>
+    <div class="form-group">
+      {{ form_label(form.category, 'Catégorie') }}
+      {{ form_widget(form.category, {'attr': {'class': 'select-field'}}) }}
+    </div>
 
-      <div class="grid-2">
-        {{ form_row(form.prepTime) }}
-        {{ form_row(form.cookTime) }}
+    <div class="form-group">
+      {{ form_label(form.imageFile, 'Photo de la recette') }}
+      {{ form_widget(form.imageFile, {'attr': {'class': 'file-input'}}) }}
+    </div>
+
+    <div class="form-group full-width">
+      {{ form_label(form.description, 'Description') }}
+      {{ form_widget(form.description, {'attr': {'class': 'textarea-field scrollable'}}) }}
+    </div>
+
+    <div class="form-group full-width">
+      {{ form_label(form.ingredients, 'Ingrédients') }}
+      {{ form_widget(form.ingredients, {'attr': {'class': 'textarea-field scrollable'}}) }}
+    </div>
+
+    <div class="form-group full-width">
+      {{ form_label(form.steps, 'Étapes de préparation') }}
+      {{ form_widget(form.steps, {'attr': {'class': 'textarea-field scrollable'}}) }}
+    </div>
+
+    <div class="form-group time-fields">
+      <div>
+        {{ form_label(form.prepTime, 'Préparation (min)') }}
+        {{ form_widget(form.prepTime, {'attr': {'class': 'input-field'}}) }}
       </div>
-
-      <div class="form-row">{{ form_row(form.category) }}</div>
-
-      <div class="actions">
-        <button class="btn-primary">Enregistrer</button>
-        <a href="{{ path('app_recipe_index') }}" class="btn-link">Annuler</a>
+      <div>
+        {{ form_label(form.cookTime, 'Cuisson (min)') }}
+        {{ form_widget(form.cookTime, {'attr': {'class': 'input-field'}}) }}
       </div>
-    {{ form_end(form) }}
+    </div>
   </div>
-</div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn-primary">Enregistrer</button>
+    <a href="{{ path('app_home') }}" class="btn-secondary">← Retour</a>
+  </div>
+
+  {{ form_end(form) }}
+</section>
 {% endblock %}
+
+
 
 

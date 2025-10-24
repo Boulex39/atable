@@ -10,127 +10,131 @@
 {% block body %}
 <section class="recipe-show">
 
-    {# ✅ Image principale de la recette #}
-    {% if recipe.imageUrl %}
-    <div class="recipe-image-container">
-        <img src="{{ asset(recipe.imageUrl) }}" alt="Image de {{ recipe.title }}" class="recipe-image">
-    </div>
+  {# Image principale #}
+  {% if recipe.imageUrl %}
+  <div class="recipe-image-container">
+    <img src="{{ asset(recipe.imageUrl) }}" alt="Image de {{ recipe.title }}" class="recipe-image">
+  </div>
+  {% else %}
+  <div class="recipe-noimage">Pas d’image disponible</div>
+  {% endif %}
+
+  <h1>{{ recipe.title }}</h1>
+
+  {# Bloc notation #}
+  <div class="rating">
+    {% set avg = recipe.getAverageRating() %}
+    {% set userVote = 0 %}
+
+    {% if app.user %}
+    {% for v in recipe.votes %}
+    {% if v.user and v.user.id == app.user.id %}
+    {% set userVote = v.value %}
     {% endif %}
-
-    <h1>{{ recipe.title }}</h1>
-
-    <div class="rating">
-        {% set avg = recipe.getAverageRating() %}
-        {% set userVote = 0 %}
-
-        {% if app.user %}
-        {% for v in recipe.votes %}
-        {% if v.user and v.user.id == app.user.id %}
-        {% set userVote = v.value %}
-        {% endif %}
-        {% endfor %}
-        {% endif %}
-
-        <div class="stars">
-            {% for i in 1..5 %}
-            <form action="{{ path('app_vote_add', {id: recipe.id, value: i}) }}" method="POST" style="display:inline;">
-                <button class="star {% if i <= userVote %}selected{% elseif i <= avg %}average{% endif %}"
-                    type="submit">★</button>
-            </form>
-            {% endfor %}
-        </div>
-
-        <p class="rating-info">
-            Moyenne : {{ avg }}/5
-            {% if recipe.votes|length > 0 %}
-            ({{ recipe.votes|length }} vote{{ recipe.votes|length > 1 ? 's' : '' }})
-            {% else %}
-            — Pas encore de note
-            {% endif %}
-        </p>
-    </div>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Description</th>
-                <td>{{ recipe.description }}</td>
-            </tr>
-            <tr>
-                <th>Ingrédients</th>
-                <td>{{ recipe.ingredients|nl2br }}</td>
-            </tr>
-            <tr>
-                <th>Étapes</th>
-                <td>{{ recipe.steps|nl2br }}</td>
-            </tr>
-            <tr>
-                <th>Préparation</th>
-                <td>{{ recipe.prepTime }} min</td>
-            </tr>
-            <tr>
-                <th>Cuisson</th>
-                <td>{{ recipe.cookTime }} min</td>
-            </tr>
-            <tr>
-                <th>Catégorie</th>
-                <td>{{ recipe.category ? recipe.category.name : '—' }}</td>
-            </tr>
-            <tr>
-                <th>Auteur</th>
-                <td>{{ recipe.author ? (recipe.author.username ?: recipe.author.email) : '—' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="recipe-actions">
-        <a href="{{ path('app_home') }}" class="btn">← Retour</a>
-
-        {% if app.user and (is_granted('ROLE_ADMIN') or (recipe.author and app.user and recipe.author.id ==
-        app.user.id)) %}
-        <a href="{{ path('app_recipe_edit', {'id': recipe.id}) }}" class="btn">Modifier</a>
-        {{ include('recipe/_delete_form.html.twig') }}
-        {% endif %}
-    </div>
-
-    <hr>
-
-    <h3>Commentaires</h3>
-
-    {# Flash messages #}
-    {% for label, messages in app.flashes %}
-    {% for m in messages %}
-    <div class="flash-{{ label }}">{{ m }}</div>
     {% endfor %}
+    {% endif %}
+
+    <div class="stars">
+      {% for i in 1..5 %}
+      <form action="{{ path('app_vote_add', {id: recipe.id, value: i}) }}" method="POST" style="display:inline;">
+        <button class="star {% if i <= userVote %}selected{% elseif i <= avg %}average{% endif %}" type="submit"
+          title="{{ i }}/5">★</button>
+      </form>
+      {% endfor %}
+    </div>
+
+    <p class="rating-info">
+      Moyenne : {{ avg }}/5
+      {% if recipe.votes|length > 0 %}
+      ({{ recipe.votes|length }} vote{{ recipe.votes|length > 1 ? 's' : '' }})
+      {% else %}
+      — Pas encore de note
+      {% endif %}
+    </p>
+  </div>
+
+  {# Tableau #}
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>Description</th>
+        <td>{{ recipe.description }}</td>
+      </tr>
+      <tr>
+        <th>Ingrédients</th>
+        <td>{{ recipe.ingredients|nl2br }}</td>
+      </tr>
+      <tr>
+        <th>Étapes</th>
+        <td>{{ recipe.steps|nl2br }}</td>
+      </tr>
+      <tr>
+        <th>Préparation</th>
+        <td>{{ recipe.prepTime }} min</td>
+      </tr>
+      <tr>
+        <th>Cuisson</th>
+        <td>{{ recipe.cookTime }} min</td>
+      </tr>
+      <tr>
+        <th>Catégorie</th>
+        <td>{{ recipe.category ? recipe.category.name : '—' }}</td>
+      </tr>
+      <tr>
+        <th>Auteur</th>
+        <td>{{ recipe.author ? (recipe.author.username ?: recipe.author.email) : '—' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  {# Boutons #}
+  <div class="recipe-actions">
+    <a href="{{ path('app_home') }}" class="btn">← Retour</a>
+
+    {% if app.user and (is_granted('ROLE_ADMIN') or (recipe.author and app.user and recipe.author.id == app.user.id)) %}
+    <a href="{{ path('app_recipe_edit', {'id': recipe.id}) }}" class="btn">Modifier</a>
+    {{ include('recipe/_delete_form.html.twig') }}
+    {% endif %}
+  </div>
+
+  <hr>
+
+  <h3>Commentaires</h3>
+
+  {# Flash messages #}
+  {% for label, messages in app.flashes %}
+  {% for m in messages %}
+  <div class="flash-{{ label }}">{{ m }}</div>
+  {% endfor %}
+  {% endfor %}
+
+  {# Liste des commentaires #}
+  {% if comments is empty %}
+  <p>Aucun commentaire pour le moment.</p>
+  {% else %}
+  <ul class="comment-list">
+    {% for c in comments %}
+    <li class="comment-item">
+      <div class="comment-meta">
+        Par <strong>{{ c.user.username ?: c.user.email }}</strong>
+        — {{ c.createdAt|date('d/m/Y H:i') }}
+      </div>
+      <div class="comment-content">{{ c.content|nl2br }}</div>
+    </li>
     {% endfor %}
+  </ul>
+  {% endif %}
 
-    {# Liste des commentaires #}
-    {% if comments is empty %}
-    <p>Aucun commentaire pour le moment.</p>
-    {% else %}
-    <ul class="comment-list">
-        {% for c in comments %}
-        <li class="comment-item">
-            <div class="comment-meta">
-                Par <strong>{{ c.user.username ?: c.user.email }}</strong>
-                — {{ c.createdAt|date('d/m/Y H:i') }}
-            </div>
-            <div class="comment-content">{{ c.content|nl2br }}</div>
-        </li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-
-    {# Formulaire d’ajout de commentaire #}
-    {% if app.user and form is defined and form %}
-    <h4>Ajouter un commentaire</h4>
-    {{ form_start(form) }}
-    {{ form_row(form.content) }}
-    <button class="btn btn-primary">Publier</button>
-    {{ form_end(form) }}
-    {% else %}
-    <p><a href="{{ path('app_login') }}">Connectez-vous</a> pour commenter.</p>
-    {% endif %}
+  {# Formulaire de commentaire #}
+  {% if app.user and form is defined and form %}
+  <h4>Ajouter un commentaire</h4>
+  {{ form_start(form) }}
+  {{ form_row(form.content) }}
+  <button class="btn btn-primary">Publier</button>
+  {{ form_end(form) }}
+  {% else %}
+  <p><a href="{{ path('app_login') }}">Connectez-vous</a> pour commenter.</p>
+  {% endif %}
 
 </section>
 {% endblock %}

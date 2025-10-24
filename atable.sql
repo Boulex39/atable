@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 01 oct. 2025 à 04:07
+-- Généré le : ven. 24 oct. 2025 à 05:40
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -30,10 +30,21 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `category`
+--
+
+INSERT INTO `category` (`id`, `name`, `created_at`) VALUES
+(1, 'Orientale', '2025-10-22 10:12:04'),
+(2, 'Asiatique', '2025-10-23 09:53:27'),
+(3, 'Europe', '2025-10-23 09:57:38'),
+(4, 'Améerique du Sud', '2025-10-23 09:59:31'),
+(5, 'Amérique du nord', '2025-10-23 10:01:42');
 
 -- --------------------------------------------------------
 
@@ -47,11 +58,21 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `user_id` int NOT NULL,
-  `recipe_id` int NOT NULL,
+  `recipe_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_9474526CA76ED395` (`user_id`),
   KEY `IDX_9474526C59D8A214` (`recipe_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `comment`
+--
+
+INSERT INTO `comment` (`id`, `content`, `created_at`, `user_id`, `recipe_id`) VALUES
+(1, 'super top', '2025-10-22 14:22:06', 3, 3),
+(2, 'trop bon', '2025-10-22 14:22:19', 3, 3),
+(3, 'j\'adore le couscous', '2025-10-23 08:36:13', 1, 4),
+(4, 'superbe recette !!!', '2025-10-23 21:25:08', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -74,7 +95,9 @@ CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
 ('DoctrineMigrations\\Version20250901212928', '2025-09-01 21:29:31', 34),
 ('DoctrineMigrations\\Version20251001003237', '2025-10-01 00:33:09', 66),
-('DoctrineMigrations\\Version20251001010108', '2025-10-01 01:01:41', 317);
+('DoctrineMigrations\\Version20251001010108', '2025-10-01 01:01:41', 317),
+('DoctrineMigrations\\Version20251001064723', '2025-10-01 06:47:30', 165),
+('DoctrineMigrations\\Version20251022133606', '2025-10-22 13:59:54', 14);
 
 -- --------------------------------------------------------
 
@@ -86,7 +109,7 @@ DROP TABLE IF EXISTS `favorite`;
 CREATE TABLE IF NOT EXISTS `favorite` (
   `id` int NOT NULL AUTO_INCREMENT,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-  `recipe_id` int NOT NULL,
+  `recipe_id` int DEFAULT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_68C58ED959D8A214` (`recipe_id`),
@@ -103,8 +126,8 @@ DROP TABLE IF EXISTS `image`;
 CREATE TABLE IF NOT EXISTS `image` (
   `id` int NOT NULL AUTO_INCREMENT,
   `url` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alt_text` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `recipe_id` int NOT NULL,
+  `alt_text` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `recipe_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_C53D045F59D8A214` (`recipe_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -139,20 +162,31 @@ CREATE TABLE IF NOT EXISTS `messenger_messages` (
 DROP TABLE IF EXISTS `recipe`;
 CREATE TABLE IF NOT EXISTS `recipe` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ingredients` json NOT NULL,
-  `steps` json NOT NULL,
-  `prep_time` smallint NOT NULL,
-  `cook_time` smallint NOT NULL,
+  `ingredients` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `steps` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `prep_time` int NOT NULL,
+  `cook_time` int NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `published_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
   `category_id` int NOT NULL,
   `author_id` int NOT NULL,
+  `image_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_DA88B13712469DE2` (`category_id`),
   KEY `IDX_DA88B137F675F31B` (`author_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `recipe`
+--
+
+INSERT INTO `recipe` (`id`, `title`, `description`, `ingredients`, `steps`, `prep_time`, `cook_time`, `created_at`, `published_at`, `category_id`, `author_id`, `image_url`) VALUES
+(1, 'couscous', 'couscous', 'couscous', 'fqfqsfqdqdqzdzqdqz', 10, 30, '2025-10-22 10:12:47', NULL, 1, 1, NULL),
+(2, 'tajine agneaux', 'bpn tajine agneaux', 'dqzdqzdqsdqsdqz', 'adsfqfqzdqzd', 60, 120, '2025-10-22 13:23:25', NULL, 1, 3, '/uploads/recipes/68f9fafe716e9.jpg'),
+(3, 'Poulet Yassah', 'un bon poulet comme en afrique la bas', 'beidqpfoihqdq', 'fqsdqzqzdqsdqzedqzd', 60, 120, '2025-10-22 14:19:40', NULL, 1, 3, '/uploads/recipes/68f9fa4c11148.jpg'),
+(4, 'couscous', 'cous', 'cous', 'qsdqdzqadqzdqz', 60, 123, '2025-10-22 14:54:39', NULL, 1, 3, 'uploads/recipes/68f8f02fa2e6e.jpg');
 
 -- --------------------------------------------------------
 
@@ -163,13 +197,24 @@ CREATE TABLE IF NOT EXISTS `recipe` (
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `email`, `password`, `roles`, `created_at`) VALUES
+(1, 'boulex39', 'alex@gmail.com', '$2y$13$MntevFkovalmdBFupSY2HumL.5xlcXizNtl0W4TtuNR9VDgtCgTCa', '[\"ROLE_ADMIN\", \"ROLE_USER\"]', '2025-10-13 01:28:57'),
+(2, 'rebecca', 'rebecca@gmail.com', '$2y$13$5ZTA0Jy9iz6FASZAhb6uZOw8a1J/YKVoXk2EbJTVIf.JdOiQ7uioe', '[\"ROLE_ADMIN\"]', '2025-10-13 01:37:00'),
+(3, 'boulex', 'boubou@gmail.com', '$2y$13$CKFeMaMQgvV7Jj8mCrWuBusUfJkU2Oad3CvZpYE4tpzS/h4tx2Sx6', '[\"ROLE_USER\"]', '2025-10-22 07:00:17'),
+(4, 'toto', 'toto@gmail.com', '$2y$13$.xkfyJ/NdaydzZ21a8l2k.yKfMxsbSiv5oerUTi2INWjkdHGw6gOi', '[\"ROLE_USER\"]', '2025-10-23 22:02:07');
 
 -- --------------------------------------------------------
 
@@ -180,14 +225,25 @@ CREATE TABLE IF NOT EXISTS `user` (
 DROP TABLE IF EXISTS `vote`;
 CREATE TABLE IF NOT EXISTS `vote` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `value` smallint NOT NULL,
+  `value` int NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `user_id` int NOT NULL,
   `recipe_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_5A108564A76ED395` (`user_id`),
   KEY `IDX_5A10856459D8A214` (`recipe_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `vote`
+--
+
+INSERT INTO `vote` (`id`, `value`, `created_at`, `user_id`, `recipe_id`) VALUES
+(1, 4, '2025-10-22 15:36:39', 3, 4),
+(2, 4, '2025-10-22 16:40:55', 3, 3),
+(3, 4, '2025-10-23 06:40:50', 1, 4),
+(4, 4, '2025-10-23 09:48:49', 1, 3),
+(5, 4, '2025-10-23 21:24:29', 1, 1);
 
 --
 -- Contraintes pour les tables déchargées

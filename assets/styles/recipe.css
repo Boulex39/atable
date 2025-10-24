@@ -80,24 +80,50 @@ a:hover {
 }
 
 /* ====== Boutons ====== */
-.btn,
-button {
-  background-color: var(--brand-solid);
+.recipe-show button,
+.recipe-show .btn {
   color: white;
   border: none;
   padding: 10px 18px;
-  border-radius: 999px;
+  border-radius: 25px;
   cursor: pointer;
   font-size: 15px;
   margin-top: 8px;
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.btn:hover,
-button:hover {
+/* Bouton général */
+.recipe-actions a,
+.recipe-actions button {
+  background-color: var(--brand-solid);
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 0 6px;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.recipe-actions a:hover,
+.recipe-actions button:hover {
   background-color: var(--brand-dark);
   transform: translateY(-1px);
 }
+
+/* Bouton Supprimer */
+.recipe-actions .btn-danger {
+  background-color: #f8b4c0;
+  color: #fff;
+}
+.recipe-actions .btn-danger:hover {
+  background-color: #f093a8;
+}
+
+
 
 /* ====== Section des commentaires ====== */
 h3 {
@@ -133,7 +159,7 @@ ul li strong {
 }
 
 /* ====== Formulaire d’ajout de commentaire ====== */
-form {
+.recipe-show form {
   max-width: 600px;
   margin: 20px auto 40px;
   display: flex;
@@ -141,7 +167,7 @@ form {
   gap: 10px;
 }
 
-textarea {
+.recipe-show textarea {
   width: 100%;
   min-height: 100px;
   padding: 10px;
@@ -151,7 +177,7 @@ textarea {
   resize: vertical;
 }
 
-button.btn-primary {
+.recipe button.btn-primary {
   align-self: flex-end;
 }
 
@@ -172,14 +198,14 @@ p a {
   justify-content: center;
   align-items: center;
   flex-wrap: nowrap;
-  gap: 4px;
+  gap: 1px;
 }
 
-.star {
+.stars .star {
   background: none;
   border: none;
   font-size: 3rem;
-  color: #ccc;              /* ⭐ gris par défaut */
+  color: #615d5d;              /* ⭐ gris par défaut */
   cursor: pointer;
   padding: 0;
   margin: 0;
@@ -189,24 +215,24 @@ p a {
 
 /* Survol = rose plus foncé, bien visible */
 .star:hover {
-  color: #d96c84;           /* ⭐ rose plus soutenu visible */
+  color: #786b6e;           /* ⭐ rose plus soutenu visible */
   transform: scale(1.05);
 }
 
 /* Sélectionnée = rose moyen (vote enregistré) */
-.star.selected {
-  color: #e48c9b;
+ .star.selected {
+  color: #a1a0a0;
 }
 
 /* Moyenne (étoiles dorées pour moyenne) */
 .star.average {
-  color: #fcb900;
+  color: #9c2bb98a;
 }
 
 .rating-info {
   font-size: 0.95rem;
   color: var(--muted);
-  margin-top: 6px;
+  margin-top: 5px;
 }
 
 

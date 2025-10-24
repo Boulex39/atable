@@ -150,25 +150,29 @@ final class RecipeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_recipe_delete', methods: ['POST'])]
-    public function delete(Request $request, Recipe $recipe, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Recipe $recipe, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
+
+        // Vérifie si l’utilisateur est admin ou auteur
         $isAdmin = $this->isGranted('ROLE_ADMIN');
-        $isOwner = method_exists($recipe, 'getAuthor')
-            && $recipe->getAuthor()
-            && $user
-            && $recipe->getAuthor()->getId() === $user->getId();
+        $isOwner = $recipe->getAuthor() && $user && $recipe->getAuthor()->getId() === $user->getId();
 
         if (!$isAdmin && !$isOwner) {
             throw new AccessDeniedException('Vous ne pouvez pas supprimer cette recette.');
         }
+        dump($request->getPayload()->all());
+        dump($request->getPayload()->getString('_token'));
+        dd($this->isCsrfTokenValid('delete' . $recipe->getId(), $request->getPayload()->getString('_token')));
 
-        if ($this->isCsrfTokenValid('delete' . $recipe->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($recipe);
-            $entityManager->flush();
-            $this->addFlash('success', 'Recette supprimée.');
+        // Validation CSRF
+        $token = $request->getPayload()->getString('_token');
+        if ($this->isCsrfTokenValid('delete' . $recipe->getId(), $token)) {
+            $em->remove($recipe);
+            $em->flush();
+            $this->addFlash('success', 'Recette supprimée avec succès.');
         } else {
-            $this->addFlash('error', 'Jeton CSRF invalide.');
+            $this->addFlash('error', 'Échec de la suppression : jeton CSRF invalide.');
         }
 
         return $this->redirectToRoute('app_recipe_index');

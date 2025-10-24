@@ -17,12 +17,18 @@
     <hr>
 
     <div class="profile-info">
-        <h2>Mes informations</h2>
-        <ul>
-            <li><strong>Email :</strong> {{ user.email }}</li>
-            <li><strong>Rôle :</strong> {{ user.roles|join(', ') }}</li>
-        </ul>
-    </div>
+  <h2>Mes informations</h2>
+  <ul>
+    <li><strong>Email :</strong> {{ user.email }}</li>
+    <li><strong>Rôle :</strong>
+      {% if 'ROLE_ADMIN' in user.roles %}
+        <span class="role-badge admin">Administrateur</span>
+      {% else %}
+        <span class="role-badge user">Membre</span>
+      {% endif %}
+    </li>
+  </ul>
+</div>
 
     <hr>
 

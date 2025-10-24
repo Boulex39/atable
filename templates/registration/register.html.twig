@@ -10,7 +10,7 @@
 <div class="auth-wrap">
   <div class="auth-card">
     <h1 class="auth-title">Créer un compte</h1>
-    <p class="auth-sub">Rejoignez la communauté CookTogether.</p>
+    <p class="auth-sub">Rejoignez la communauté À table !</p>
 
     {% for label, messages in app.flashes %}
       {% for message in messages %}
@@ -31,7 +31,7 @@
 
       <div class="form-group">
         {{ form_label(registrationForm.email, 'Email') }}
-        {{ form_widget(registrationForm.email, { attr: { placeholder: 'ex: alex@mail.com' } }) }}
+        {{ form_widget(registrationForm.email, { attr: { placeholder: 'Votre email' } }) }}
         {{ form_errors(registrationForm.email) }}
       </div>
 

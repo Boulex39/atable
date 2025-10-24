@@ -18,6 +18,7 @@
   --blur: 10px;
   --radius: 16px;
   --shadow: 0 4px 12px rgba(0,0,0,0.05);
+  
 }
 
 /* Reset */
@@ -67,11 +68,11 @@ body {
 .site-logo:hover { transform: scale(1.05); }
 
 /* Barre de recherche responsive */
-.search-form {
+.site-header .search-form {
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.9);
-  border-radius: 999px;
+  border-radius: 25px;
   overflow: hidden;
   box-shadow: 0 1px 4px rgba(0,0,0,0.05);
   flex: 1;
@@ -79,7 +80,7 @@ body {
   max-width: 380px;
 }
 
-.search-form input {
+.site-header .search-form input {
   border: none;
   padding: 10px 14px;
   border-radius: 999px 0 0 999px;
@@ -89,9 +90,10 @@ body {
   background: transparent;
   color: var(--ink);
 }
-.search-form input::placeholder { color: #888; }
 
-.search-form button {
+.site-header .search-form input::placeholder { color: #888; }
+
+.site-header .search-form button {
   background: var(--brand-solid);
   border: none;
   color: white;
@@ -101,7 +103,8 @@ body {
   font-size: 1.1rem;
   transition: background 0.2s;
 }
-.search-form button:hover { background: var(--brand-dark); }
+
+.site-header .search-form button:hover { background: var(--brand-dark); }
 
 /* Zone utilisateur */
 .user-area {
@@ -152,8 +155,8 @@ body {
 .site-main {
   flex: 1;
   max-width: 1100px;
-  margin: 22px auto;
-  padding: 0 16px 40px;
+  margin: 100px auto 40px; /* <-- au lieu de 22px auto */
+  padding: 0 16px;
 }
 
 /* Liens et boutons */
