@@ -4,25 +4,41 @@
    =============================== */
 
 /* Cache la nav sur /login et /register */
-.user-area.is-hidden { display: none; }
+.user-area.is-hidden {
+  display: none;
+}
 
 /* Variables du thème */
 :root {
-  --brand: rgba(255, 182, 193, 0.85);   /* rose clair semi-transparent */
-  --brand-solid: #ffb6c1;               /* rose clair opaque */
-  --brand-dark: #e48c9b;                /* hover */
-  --ink: #2c3e50;                       /* texte sombre */
-  --muted: #6b7280;                     /* texte secondaire */
+  --brand: rgba(255, 182, 193, 0.85);
+  /* rose clair semi-transparent */
+  --brand-solid: #ffb6c1;
+  /* rose clair opaque */
+  --brand-dark: #e48c9b;
+  /* hover */
+  --ink: #2c3e50;
+  /* texte sombre */
+  --muted: #6b7280;
+  /* texte secondaire */
   --bg: #fafafa;
   --white: #fff;
   --blur: 10px;
   --radius: 16px;
-  --shadow: 0 4px 12px rgba(0,0,0,0.05);
-  
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+html,
+body {
+  height: 100%;
 }
 
 /* Reset */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--ink);
@@ -33,6 +49,61 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ===============================
+   BOUTON BURGER — Dans le main
+   =============================== */
+.burger {
+  display: none; /* caché en desktop */
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 32px;
+  height: 24px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  z-index: 200;
+}
+
+/* Barres du burger */
+.burger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background: #333;
+  margin: 5px 0;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+/* Pour qu'on le voie toujours, même sur fond clair */
+.burger {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  padding: 6px;
+}
+
+
+
+/* Animation croix quand actif */
+.burger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.burger.active span:nth-child(2) {
+  opacity: 0;
+}
+.burger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+
 
 /* ===============================
    HEADER — NAVBAR TRANSPARENTE
@@ -45,7 +116,7 @@ body {
   backdrop-filter: blur(var(--blur));
   background: var(--brand);
   box-shadow: var(--shadow);
-  border-bottom: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -65,7 +136,10 @@ body {
   display: block;
   transition: transform 0.2s ease;
 }
-.site-logo:hover { transform: scale(1.05); }
+
+.site-logo:hover {
+  transform: scale(1.05);
+}
 
 /* Barre de recherche responsive */
 .site-header .search-form {
@@ -74,7 +148,7 @@ body {
   background: rgba(255, 255, 255, 0.9);
   border-radius: 25px;
   overflow: hidden;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   flex: 1;
   min-width: 220px;
   max-width: 380px;
@@ -91,7 +165,9 @@ body {
   color: var(--ink);
 }
 
-.site-header .search-form input::placeholder { color: #888; }
+.site-header .search-form input::placeholder {
+  color: #888;
+}
 
 .site-header .search-form button {
   background: var(--brand-solid);
@@ -104,7 +180,9 @@ body {
   transition: background 0.2s;
 }
 
-.site-header .search-form button:hover { background: var(--brand-dark); }
+.site-header .search-form button:hover {
+  background: var(--brand-dark);
+}
 
 /* Zone utilisateur */
 .user-area {
@@ -123,6 +201,7 @@ body {
   transition: background-color .15s ease, color .15s ease;
   font-weight: 500;
 }
+
 .user-area a:hover,
 .user-area a:focus {
   background: rgba(255, 255, 255, 0.4);
@@ -133,7 +212,10 @@ body {
   color: var(--brand-dark);
   font-weight: 600;
 }
-.user-area span strong { color: var(--brand-dark); }
+
+.user-area span strong {
+  color: var(--brand-dark);
+}
 
 .admin-link {
   background: var(--brand-solid);
@@ -143,6 +225,7 @@ body {
   padding: 6px 16px;
   transition: 0.2s;
 }
+
 .admin-link:hover {
   background: var(--brand-dark);
   color: var(--white) !important;
@@ -154,16 +237,26 @@ body {
 
 .site-main {
   flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
   max-width: 1100px;
-  margin: 100px auto 40px; /* <-- au lieu de 22px auto */
+  margin: 40px auto;
   padding: 0 16px;
 }
 
 /* Liens et boutons */
-a { color: var(--brand-dark); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a {
+  color: var(--brand-dark);
+  text-decoration: none;
+}
 
-.btn, button, .btn-primary {
+a:hover {
+  text-decoration: underline;
+}
+
+.btn,
+button,
+.btn-primary {
   background: var(--brand-solid);
   color: #fff;
   border: none;
@@ -172,13 +265,29 @@ a:hover { text-decoration: underline; }
   cursor: pointer;
   transition: background-color .15s ease, transform .02s ease;
 }
-.btn:hover, button:hover, .btn-primary:hover { background: var(--brand-dark); }
-.btn:active, button:active { transform: translateY(1px); }
-.btn-danger { background: #ef4444; }
-.btn-danger:hover { background: #dc2626; }
+
+.btn:hover,
+button:hover,
+.btn-primary:hover {
+  background: var(--brand-dark);
+}
+
+.btn:active,
+button:active {
+  transform: translateY(1px);
+}
+
+.btn-danger {
+  background: #ef4444;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
 
 /* Flash messages */
-[class^="flash-"], [class*=" flash-"] {
+[class^="flash-"],
+[class*=" flash-"] {
   padding: 12px 16px;
   border-radius: 12px;
   margin: 12px 0;
@@ -186,9 +295,24 @@ a:hover { text-decoration: underline; }
   border: 1px solid #e5e7eb;
   color: #374151;
 }
-.flash-success { background: #ecfdf5; border-color: #34d39940; color: #065f46; }
-.flash-error   { background: #fef2f2; border-color: #f8717140; color: #991b1b; }
-.flash-info    { background: #eff6ff; border-color: #60a5fa40; color: #1e40af; }
+
+.flash-success {
+  background: #ecfdf5;
+  border-color: #34d39940;
+  color: #065f46;
+}
+
+.flash-error {
+  background: #fef2f2;
+  border-color: #f8717140;
+  color: #991b1b;
+}
+
+.flash-info {
+  background: #eff6ff;
+  border-color: #60a5fa40;
+  color: #1e40af;
+}
 
 /* ===============================
    FOOTER — TRANSPARENT ET CENTRÉ
@@ -201,10 +325,11 @@ a:hover { text-decoration: underline; }
   text-align: center;
   padding: 18px 8px;
   font-size: 0.95rem;
-  border-top: 1px solid rgba(255,255,255,0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
   width: 100%;
   margin-top: auto;
 }
+
 .site-footer p {
   margin: 0;
   color: var(--ink);
@@ -214,7 +339,9 @@ a:hover { text-decoration: underline; }
 /* ===============================
    ACCESSIBILITÉ
    =============================== */
-a:focus-visible, button:focus-visible, input:focus-visible {
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
   outline: 3px solid var(--brand-dark);
   outline-offset: 2px;
 }
@@ -245,6 +372,50 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   }
 }
 
+
+/* ✅ Visible uniquement sur mobile */
+@media (max-width: 768px) {
+  .burger {
+    display: block;
+  }
+
+  .user-area {
+    position: absolute;
+    top: 60px; /* sous le header */
+    right: 15px;
+    flex-direction: column;
+    background: var(--white);
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 10px 0;
+    width: 180px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 150;
+  }
+
+  .user-area.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .user-area a {
+    display: block;
+    padding: 10px;
+    color: var(--ink);
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+
+  .user-area a:last-child {
+    border-bottom: none;
+  }
+}
+
+
 @media (max-width: 480px) {
   .site-header {
     padding: 8px 12px;
@@ -269,8 +440,3 @@ a:focus-visible, button:focus-visible, input:focus-visible {
     padding: 16px 6px;
   }
 }
-
-
-
-
-

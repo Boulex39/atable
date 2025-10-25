@@ -40,13 +40,11 @@ class AdminRoleController extends AbstractController
         $user->setRoles([$newRole]);
         $em->flush();
 
-        $this->addFlash('success', sprintf(
-            'Le rôle de %s a été mis à jour en %s.',
-            $user->getEmail(),
-            $newRole
-        ));
+        $roleLabel = $newRole === 'ROLE_ADMIN' ? 'Administrateur' : 'Utilisateur';
+        $username = $user->getUsername() ?: '(sans pseudo)';
+        $this->addFlash('success', sprintf('Le rôle de %s a été mis à jour en %s.', $username, $roleLabel));
+
 
         return $this->redirectToRoute('app_admin_dashboard');
     }
 }
-

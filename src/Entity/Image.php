@@ -20,7 +20,9 @@ class Image
     private ?string $altText = null;
 
     #[ORM\ManyToOne(inversedBy: 'images')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Recipe $recipe = null;
+
 
     public function getId(): ?int
     {

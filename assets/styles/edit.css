@@ -53,6 +53,41 @@ form select {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Désactive le redimensionnement des textareas */
+form textarea {
+  resize: none;
+}
+
+/* Classe personnalisée pour les grands champs texte */
+.textarea-field.scrollable {
+  min-height: 120px;
+  max-height: 260px;
+  overflow-y: auto;
+  line-height: 1.5;
+  font-size: 1rem;
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.95);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* Scroll discret et pastel */
+.textarea-field.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+.textarea-field.scrollable::-webkit-scrollbar-track {
+  background: #f2f2f2;
+  border-radius: 10px;
+}
+.textarea-field.scrollable::-webkit-scrollbar-thumb {
+  background: var(--brand-solid);
+  border-radius: 10px;
+}
+.textarea-field.scrollable::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-dark);
+}
+
+/* Focus des champs */
 form input:focus,
 form textarea:focus,
 form select:focus {
@@ -119,10 +154,70 @@ form button.btn-danger:hover {
 }
 
 /* ===============================
-   RESPONSIVE
+   STYLES SUPPLÉMENTAIRES BOUTONS
    =============================== */
 
-/* Tablette ≤ 992px */
+/* Harmonisation des boutons Mettre à jour, Retour et Supprimer */
+
+/* Bouton principal (Mettre à jour) */
+.btn-update {
+  background: var(--brand-solid);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.btn-update:hover {
+  background: var(--brand-dark);
+  transform: translateY(-1px);
+}
+
+/* Bouton retour à la recette */
+.back-link {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 10px 20px;
+  border: 2px solid var(--brand-dark);
+  border-radius: 999px;
+  color: var(--brand-dark);
+  background: transparent;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.25s ease;
+}
+.back-link:hover {
+  background: var(--brand-dark);
+  color: white;
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+/* Bouton supprimer */
+.btn-danger {
+  background: var(--brand-solid);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.btn-danger:hover {
+  background: var(--brand-solid);
+  transform: translateY(-1px);
+}
+
+
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+
+/* === Tablette ≤ 992px === */
 @media (max-width: 992px) {
   .edit-recipe {
     padding: 35px 25px;
@@ -138,9 +233,14 @@ form button.btn-danger:hover {
     width: 100%;
     text-align: center;
   }
+
+  .textarea-field.scrollable {
+    min-height: 110px;
+    max-height: 220px;
+  }
 }
 
-/* Mobile ≤ 768px */
+/* === Mobile ≤ 768px === */
 @media (max-width: 768px) {
   .edit-recipe {
     padding: 25px 18px;
@@ -163,6 +263,11 @@ form button.btn-danger:hover {
     padding: 10px 12px;
   }
 
+  .textarea-field.scrollable {
+    min-height: 100px;
+    max-height: 200px;
+  }
+
   button,
   .btn {
     font-size: 0.95rem;
@@ -174,9 +279,17 @@ form button.btn-danger:hover {
     text-align: center;
     margin-top: 20px;
   }
+
+  .btn-update,
+  .btn-danger,
+  .back-link {
+    width: 100%;
+    text-align: center;
+    display: block;
+  }
 }
 
-/* Petits écrans ≤ 480px */
+/* === Petit mobile ≤ 480px === */
 @media (max-width: 480px) {
   .edit-recipe {
     padding: 20px 15px;
@@ -186,9 +299,21 @@ form button.btn-danger:hover {
     font-size: 1.4rem;
   }
 
+  form input,
+  form textarea,
+  form select {
+    font-size: 0.9rem;
+  }
+
+  .textarea-field.scrollable {
+    min-height: 90px;
+    max-height: 180px;
+  }
+
   button,
   .btn {
     font-size: 0.9rem;
     padding: 9px 14px;
   }
 }
+

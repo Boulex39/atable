@@ -16,18 +16,28 @@
   <div class="add-recipe-container">
     <a href="{{ path('app_recipe_new') }}" class="btn btn-add">Ajouter une recette</a>
   </div>
-{% endif %}
+  {% endif %}
 
-  <div class="recipe-grid">
+  <div class="filter-buttons">
+    <button data-category="all" class="filter active">Toutes</button>
+    <button data-category="entrée" class="filter">Entrées</button>
+    <button data-category="plat" class="filter">Plats</button>
+    <button data-category="dessert" class="filter">Desserts</button>
+    <button data-category="rapide" class="filter">Rapides (-15min)</button>
+  </div>
+
+
+  <div id="recipesList" class="recipe-grid">
     {% for recipe in recipes %}
-    <div class="recipe-card">
+    <div class="recipe-card" data-category="{{ recipe.category ? recipe.category.name|lower : '' }}"
+      data-time="{{ recipe.prepTime + recipe.cookTime }}" data-prep="{{ recipe.prepTime }}">
+
       <a href="{{ path('app_recipe_show', { id: recipe.id }) }}">
         {% if recipe.imageUrl %}
         <img src="{{ recipe.imageUrl }}" alt="{{ recipe.title }}">
         {% else %}
         <div class="no-image">Pas d’image</div>
         {% endif %}
-
       </a>
       <div class="recipe-content">
         <h2>{{ recipe.title }}</h2>
@@ -46,4 +56,8 @@
     {% endfor %}
   </div>
 </section>
+
+{# ✅ Script de filtrage #}
+<script defer src="{{ asset('scripts/filter.js') }}"></script>
+
 {% endblock %}

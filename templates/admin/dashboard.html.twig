@@ -12,20 +12,18 @@
 
     <h1>Espace d’administration</h1>
 
-    <div class="admin-sections">
+    {# --- GESTION DES CATÉGORIES --- #}
+    <div class="admin-block">
+        <h2>Gestion des catégories</h2>
 
-        {# --- GESTION DES CATÉGORIES --- #}
-        <div class="admin-block">
-            <h2>Gestion des catégories</h2>
+        <div class="actions-top">
+            <a href="{{ path('app_category_new') }}" class="btn btn-add">Nouvelle catégorie</a>
+        </div>
 
-            <div class="actions-top">
-                <a href="{{ path('app_category_new') }}" class="btn btn-add">Nouvelle catégorie</a>
-            </div>
-
+        <div class="table-wrapper">
             <table class="category-table">
                 <thead>
                     <tr>
-                        {# <th>ID</th> #}
                         <th>Nom</th>
                         <th>Date de création</th>
                         <th>Actions</th>
@@ -34,10 +32,10 @@
                 <tbody>
                     {% for category in categories %}
                     <tr>
-                        {# <td>{{ category.id }}</td> #}
-                        <td>{{ category.name }}</td>
-                        <td>{{ category.createdAt ? category.createdAt|date('d/m/Y H:i') : '—' }}</td>
-                        <td>
+                        <td data-label="Nom">{{ category.name }}</td>
+                        <td data-label="Date de création">{{ category.createdAt ? category.createdAt|date('d/m/Y H:i') :
+                            '—' }}</td>
+                        <td data-label="Actions">
                             <a href="{{ path('app_category_edit', {'id': category.id}) }}"
                                 class="btn btn-edit">Modifier</a>
                             <form method="post" action="{{ path('app_category_delete', {'id': category.id}) }}"
@@ -50,22 +48,22 @@
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="4">Aucune catégorie enregistrée.</td>
+                        <td colspan="3">Aucune catégorie enregistrée.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
+    </div>
 
+    {# --- GESTION DES UTILISATEURS --- #}
+    <div class="admin-block">
+        <h2>Gestion des utilisateurs</h2>
 
-        {# --- GESTION DES UTILISATEURS --- #}
-        <div class="admin-block">
-            <h2>Gestion des utilisateurs</h2>
-
+        <div class="table-wrapper">
             <table class="user-table">
                 <thead>
                     <tr>
-                        {# <th>ID</th> #}
                         <th>Email</th>
                         <th>Pseudo</th>
                         <th>Rôle actuel</th>
@@ -75,11 +73,16 @@
                 <tbody>
                     {% for user in users %}
                     <tr>
-                        {# <td>{{ user.id }}</td> #}
-                        <td>{{ user.email }}</td>
-                        <td>{{ user.username ?: '—' }}</td>
-                        <td>{{ user.roles|join(', ') }}</td>
-                        <td>
+                        <td data-label="Email">{{ user.email }}</td>
+                        <td data-label="Pseudo">{{ user.username ?: '—' }}</td>
+                        <td data-label="Rôle actuel">
+                            {% if 'ROLE_ADMIN' in user.roles %}
+                            <span class="role-badge admin">Administrateur</span>
+                            {% else %}
+                            <span class="role-badge user">Utilisateur</span>
+                            {% endif %}
+                        </td>
+                        <td data-label="Changer le rôle">
                             <form method="post" action="{{ path('app_admin_change_role', {id: user.id}) }}">
                                 <input type="hidden" name="_token" value="{{ csrf_token('change_role' ~ user.id) }}">
                                 <select name="role">
@@ -94,13 +97,13 @@
                     </tr>
                     {% else %}
                     <tr>
-                        <td colspan="5">Aucun utilisateur trouvé.</td>
+                        <td colspan="4">Aucun utilisateur trouvé.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
-
     </div>
+
 </section>
 {% endblock %}

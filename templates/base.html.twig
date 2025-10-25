@@ -27,6 +27,12 @@
         </a>
       </div>
 
+      <button class="burger" id="burgerBtn" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
       {% if route not in ['app_login', 'app_register'] %}
       <form action="{{ path('app_search') }}" method="get" class="search-form">
         <input type="text" name="query" placeholder="Rechercher une recette..." value="{{ app.request.get('query') }}">
@@ -34,7 +40,8 @@
       </form>
       {% endif %}
 
-      <nav class="user-area {{ isAuthRoute ? 'is-hidden' : '' }}">
+      <nav class="user-area {{ isAuthRoute ? 'is-hidden' : '' }}" id="navMenu">
+
         {% if app.user %}
         <span>
           Bienvenue
@@ -54,10 +61,12 @@
         <a href="{{ path('app_login') }}">Connexion</a>
         <a href="{{ path('app_register') }}">Inscription</a>
         {% endif %}
+
       </nav>
     </header>
 
     <main class="site-main">
+
       {% for label, messages in app.flashes %}
       {% for m in messages %}
       <div class="flash-{{ label }}">{{ m }}</div>
@@ -74,6 +83,10 @@
     </footer>
 
   </div> {# ✅ fin du wrapper #}
+
+  <script defer src="{{ asset('scripts/menu.js') }}"></script>
+  <script defer src="{{ asset('scripts/filter.js') }}"></script>
+
 </body>
 
 </html>

@@ -54,27 +54,46 @@ class Recipe
     /**
      * @var Collection<int, Comment>
      */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'recipe')]
+    #[ORM\OneToMany(
+        targetEntity: Comment::class,
+        mappedBy: 'recipe',
+        orphanRemoval: true,
+        cascade: ['remove']
+    )]
     private Collection $comments;
 
     /**
      * @var Collection<int, Image>
      */
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'recipe')]
+    #[ORM\OneToMany(
+        targetEntity: Image::class,
+        mappedBy: 'recipe',
+        orphanRemoval: true,
+        cascade: ['remove']
+    )]
     private Collection $images;
 
     /**
      * @var Collection<int, Favorite>
      */
-    #[ORM\OneToMany(targetEntity: Favorite::class, mappedBy: 'recipe')]
+    #[ORM\OneToMany(
+        targetEntity: Favorite::class,
+        mappedBy: 'recipe',
+        orphanRemoval: true,
+        cascade: ['remove']
+    )]
     private Collection $favorites;
 
     /**
      * @var Collection<int, Vote>
      */
-    #[ORM\OneToMany(targetEntity: Vote::class, mappedBy: 'recipe', orphanRemoval: true)]
+    #[ORM\OneToMany(
+        targetEntity: Vote::class,
+        mappedBy: 'recipe',
+        orphanRemoval: true,
+        cascade: ['remove']
+    )]
     private Collection $votes;
-
 
     public function __construct()
     {
@@ -97,7 +116,6 @@ class Recipe
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -109,7 +127,6 @@ class Recipe
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -121,7 +138,6 @@ class Recipe
     public function setIngredients(string $ingredients): static
     {
         $this->ingredients = $ingredients;
-
         return $this;
     }
 
@@ -133,7 +149,6 @@ class Recipe
     public function setSteps(string $steps): static
     {
         $this->steps = $steps;
-
         return $this;
     }
 
@@ -145,7 +160,6 @@ class Recipe
     public function setPrepTime(int $prepTime): static
     {
         $this->prepTime = $prepTime;
-
         return $this;
     }
 
@@ -157,7 +171,6 @@ class Recipe
     public function setCookTime(int $cookTime): static
     {
         $this->cookTime = $cookTime;
-
         return $this;
     }
 
@@ -180,7 +193,6 @@ class Recipe
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -192,7 +204,6 @@ class Recipe
     public function setPublishedAt(?\DateTimeImmutable $publishedAt): static
     {
         $this->publishedAt = $publishedAt;
-
         return $this;
     }
 
@@ -204,7 +215,6 @@ class Recipe
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
-
         return $this;
     }
 
@@ -216,13 +226,10 @@ class Recipe
     public function setAuthor(?User $author): static
     {
         $this->author = $author;
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Comment>
-     */
+    /** @return Collection<int, Comment> */
     public function getComments(): Collection
     {
         return $this->comments;
@@ -234,25 +241,18 @@ class Recipe
             $this->comments->add($comment);
             $comment->setRecipe($this);
         }
-
         return $this;
     }
 
     public function removeComment(Comment $comment): static
     {
-        if ($this->comments->removeElement($comment)) {
-            // set the owning side to null (unless already changed)
-            if ($comment->getRecipe() === $this) {
-                $comment->setRecipe(null);
-            }
+        if ($this->comments->removeElement($comment) && $comment->getRecipe() === $this) {
+            $comment->setRecipe(null);
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Image>
-     */
+    /** @return Collection<int, Image> */
     public function getImages(): Collection
     {
         return $this->images;
@@ -264,25 +264,18 @@ class Recipe
             $this->images->add($image);
             $image->setRecipe($this);
         }
-
         return $this;
     }
 
     public function removeImage(Image $image): static
     {
-        if ($this->images->removeElement($image)) {
-            // set the owning side to null (unless already changed)
-            if ($image->getRecipe() === $this) {
-                $image->setRecipe(null);
-            }
+        if ($this->images->removeElement($image) && $image->getRecipe() === $this) {
+            $image->setRecipe(null);
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Favorite>
-     */
+    /** @return Collection<int, Favorite> */
     public function getFavorites(): Collection
     {
         return $this->favorites;
@@ -294,25 +287,18 @@ class Recipe
             $this->favorites->add($favorite);
             $favorite->setRecipe($this);
         }
-
         return $this;
     }
 
     public function removeFavorite(Favorite $favorite): static
     {
-        if ($this->favorites->removeElement($favorite)) {
-            // set the owning side to null (unless already changed)
-            if ($favorite->getRecipe() === $this) {
-                $favorite->setRecipe(null);
-            }
+        if ($this->favorites->removeElement($favorite) && $favorite->getRecipe() === $this) {
+            $favorite->setRecipe(null);
         }
-
         return $this;
     }
 
-    /**
-     * @return Collection<int, Vote>
-     */
+    /** @return Collection<int, Vote> */
     public function getVotes(): Collection
     {
         return $this->votes;
@@ -324,22 +310,16 @@ class Recipe
             $this->votes->add($vote);
             $vote->setRecipe($this);
         }
-
         return $this;
     }
 
     public function removeVote(Vote $vote): static
     {
-        if ($this->votes->removeElement($vote)) {
-            // si le vote appartient encore à cette recette, on le détache
-            if ($vote->getRecipe() === $this) {
-                $vote->setRecipe(null);
-            }
+        if ($this->votes->removeElement($vote) && $vote->getRecipe() === $this) {
+            $vote->setRecipe(null);
         }
-
         return $this;
     }
-
 
     public function getAverageRating(): float
     {

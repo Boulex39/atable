@@ -64,6 +64,9 @@ h1 {
 
 .table td {
   color: var(--ink);
+  white-space: pre-line;        /* respecte les retours à la ligne (nl2br) */
+  word-break: break-word;       /* coupe les mots trop longs */
+  overflow-wrap: break-word;    /* compatible navigateurs modernes */
 }
 
 /* ====== Liens ====== */
@@ -190,7 +193,7 @@ p a {
 /* ====== Notation (étoiles) ====== */
 .rating {
   text-align: center;
-  margin: 15px 0 25px;
+  margin: 10px 0 25px;
 }
 
 .stars {
@@ -205,9 +208,9 @@ p a {
   background: none;
   border: none;
   font-size: 3rem;
-  color: #615d5d;              /* ⭐ gris par défaut */
+  color: #a9449c66;             
   cursor: pointer;
-  padding: 0;
+  padding: 2px;
   margin: 0;
   line-height: 1;
   transition: color 0.2s ease, transform 0.1s ease;
@@ -215,18 +218,18 @@ p a {
 
 /* Survol = rose plus foncé, bien visible */
 .star:hover {
-  color: #786b6e;           /* ⭐ rose plus soutenu visible */
+  /* color: var(--brand);           ⭐ rose plus soutenu visible */
   transform: scale(1.05);
 }
 
 /* Sélectionnée = rose moyen (vote enregistré) */
  .star.selected {
-  color: #a1a0a0;
+  color: rgb(212, 104, 145);
 }
 
 /* Moyenne (étoiles dorées pour moyenne) */
 .star.average {
-  color: #9c2bb98a;
+  /* color: var(--brand-dark); */
 }
 
 .rating-info {

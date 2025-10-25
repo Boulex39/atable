@@ -149,7 +149,7 @@ final class RecipeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_recipe_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_recipe_delete', methods: ['POST'])]
     public function delete(Request $request, Recipe $recipe, EntityManagerInterface $em): Response
     {
         $user = $this->getUser();
@@ -161,20 +161,20 @@ final class RecipeController extends AbstractController
         if (!$isAdmin && !$isOwner) {
             throw new AccessDeniedException('Vous ne pouvez pas supprimer cette recette.');
         }
-        dump($request->getPayload()->all());
-        dump($request->getPayload()->getString('_token'));
-        dd($this->isCsrfTokenValid('delete' . $recipe->getId(), $request->getPayload()->getString('_token')));
 
-        // Validation CSRF
+        // ✅ Récupération du token
         $token = $request->getPayload()->getString('_token');
+
+        // ✅ Validation du CSRF
         if ($this->isCsrfTokenValid('delete' . $recipe->getId(), $token)) {
             $em->remove($recipe);
             $em->flush();
+
             $this->addFlash('success', 'Recette supprimée avec succès.');
         } else {
             $this->addFlash('error', 'Échec de la suppression : jeton CSRF invalide.');
         }
 
-        return $this->redirectToRoute('app_recipe_index');
+        return $this->redirectToRoute('app_home');
     }
 }

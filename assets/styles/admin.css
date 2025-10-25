@@ -189,6 +189,52 @@ select:focus-visible {
 }
 
 /* ===============================
+   BADGES DE RÔLE + FORMULAIRES UTILISATEURS
+   =============================== */
+
+.admin-dashboard .role-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.admin-dashboard .role-badge.admin {
+  background-color: var(--brand-dark);
+  color: white;
+}
+
+.admin-dashboard .role-badge.user {
+  background-color: #f1f5f9;
+  color: var(--ink);
+}
+
+.admin-dashboard .user-table td form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.admin-dashboard .user-table select {
+  flex: 1;
+  min-width: 120px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: var(--white);
+  transition: border-color 0.2s;
+}
+
+.admin-dashboard .user-table select:focus {
+  outline: none;
+  border-color: var(--brand-dark);
+  box-shadow: 0 0 0 3px rgba(228, 140, 155, 0.2);
+}
+
+
+/* ===============================
    RESPONSIVE DESIGN
    =============================== */
 
@@ -301,6 +347,63 @@ select:focus-visible {
     margin-right: 4px;
   }
 }
+
+/* ===============================
+   MODE FICHE (TABLEAUX -> LISTE) POUR PETITS ÉCRANS
+   =============================== */
+@media (max-width: 680px) {
+  .admin-dashboard table,
+  .admin-dashboard thead,
+  .admin-dashboard tbody,
+  .admin-dashboard th,
+  .admin-dashboard td,
+  .admin-dashboard tr {
+    display: block;
+    width: 100%;
+  }
+
+  .admin-dashboard thead {
+    display: none; /* on masque l’en-tête */
+  }
+
+  .admin-dashboard tr {
+    margin-bottom: 18px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 10px 12px;
+  }
+
+  .admin-dashboard td {
+    padding: 8px 0;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+
+  .admin-dashboard td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--brand-dark);
+    flex: 1;
+    text-align: left;
+  }
+
+  .admin-dashboard td:last-child {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .admin-dashboard .btn,
+  .admin-dashboard select {
+    font-size: 0.8rem;
+    padding: 6px 10px;
+  }
+}
+
 
 
 

@@ -17,7 +17,9 @@ class Favorite
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'favorites')]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Recipe $recipe = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'favorites')]
     #[ORM\JoinColumn(nullable: false)]

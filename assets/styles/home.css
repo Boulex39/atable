@@ -27,6 +27,45 @@ body {
   color: #e48c9b; /* cohérent avec ton --brand-dark */
 }
 
+.filters-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0 40px;
+}
+
+#searchInput {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  width: 80%;
+  max-width: 400px;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.filter {
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: var(--brand-dark);
+  border: 1px solid var(--brand-dark);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter.active {
+  background: var(--brand-dark);
+  color: white;
+}
+
+
 .subtitle {
   color: #666;
   font-size: 1rem;
@@ -73,10 +112,17 @@ body {
   border-radius: 16px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease-in-out;
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(4px);
+  opacity: 1; /* ✅ toujours visible par défaut */
+}
+
+.recipe-card.visible {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.25s ease-in-out;
 }
 
 .recipe-card:hover {

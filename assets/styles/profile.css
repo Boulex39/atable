@@ -3,21 +3,11 @@
    Design pastel / moderne / responsive
    =============================== */
 
-body {
-  background-color: var(--bg);
-  font-family: 'Segoe UI', Roboto, sans-serif;
-  color: var(--ink);
-  margin: 0;
-  padding: 0;
-}
-
-/* ===============================
-   CONTAINER PRINCIPAL
-   =============================== */
 .profile {
   max-width: 1100px;
-  margin: 50px auto;
-  padding: 0 20px 60px;
+  margin: 40px auto 0;
+  padding: 0 20px 40px;
+  display: block; /* on ne met PAS de flex ici */
 }
 
 /* ===============================
@@ -25,7 +15,7 @@ body {
    =============================== */
 .profile-header {
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 25px;
 }
 
 .profile-header h1 {
@@ -40,20 +30,29 @@ body {
 }
 
 /* ===============================
+   TRAITS DE SÉPARATION
+   =============================== */
+.profile hr {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  margin: 25px 0;
+}
+
+/* ===============================
    INFORMATIONS UTILISATEUR
    =============================== */
 .profile-info {
   background: var(--white);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 30px;
+  padding: 28px 60px;
   max-width: 600px;
-  margin: 0 auto 50px;
+  margin: 0 auto 35px;
 }
 
 .profile-info h2 {
   color: var(--brand-dark);
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   margin-bottom: 18px;
   text-align: center;
 }
@@ -72,14 +71,31 @@ body {
   padding-bottom: 8px;
 }
 
-/* ===============================
-   SECTION RECETTES UTILISATEUR
-   =============================== */
-.user-recipes {
-  margin-top: 40px;
+.role-badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
-.user-recipes h2 {
+.role-badge.admin {
+  background: var(--brand-solid);
+  color: #fff;
+}
+
+.role-badge.user {
+  background: #e5e7eb;
+  color: #333;
+}
+
+/* ===============================
+   SECTION MES RECETTES PUBLIÉES
+   =============================== */
+.profile-recipes {
+  margin-top: 30px;
+}
+
+.profile-recipes h2 {
   text-align: center;
   font-size: 1.6rem;
   color: var(--brand-dark);
@@ -91,7 +107,8 @@ body {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 25px;
-  max-width: 1100px;
+  justify-content: center;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -104,6 +121,8 @@ body {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
+  max-width: 320px;
+  margin: 0 auto;
 }
 
 .recipe-card:hover {
@@ -155,11 +174,42 @@ body {
   text-align: center;
   transition: background-color 0.25s ease, transform 0.1s ease;
   width: fit-content;
+  align-self: center;
 }
 
 .btn:hover {
   background-color: var(--brand-dark);
   transform: translateY(-2px);
+}
+
+/* ===============================
+   STRUCTURE GLOBALE / FOOTER FIX
+   =============================== */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.site-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.profile {
+  flex-grow: 1;
+}
+
+.site-footer {
+  margin-top: auto;
+}
+
+/* Supprime les espaces inutiles à la fin du profil */
+.profile > *:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 /* ===============================
@@ -169,7 +219,7 @@ body {
 /* TABLETTES (≤ 992px) */
 @media (max-width: 992px) {
   .profile {
-    padding: 0 16px 50px;
+    padding: 0 16px 30px;
   }
 
   .profile-header h1 {
@@ -183,12 +233,20 @@ body {
   .recipe-grid {
     gap: 20px;
   }
+
+  .recipe-card {
+    max-width: 280px;
+  }
+
+  .recipe-card img {
+    height: 160px;
+  }
 }
 
 /* MOBILES (≤ 768px) */
 @media (max-width: 768px) {
   .profile {
-    margin: 30px auto;
+    margin: 20px auto 0;
   }
 
   .profile-header h1 {
@@ -196,7 +254,7 @@ body {
   }
 
   .profile-info {
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     padding: 20px;
   }
 
@@ -204,8 +262,9 @@ body {
     font-size: 1.2rem;
   }
 
-  .recipe-card img {
-    height: 160px;
+  .recipe-card {
+    max-width: 360px;
+    margin: 0 auto;
   }
 
   .recipe-content h3 {
@@ -236,6 +295,18 @@ body {
     font-size: 0.9rem;
   }
 
+  .recipe-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .recipe-card {
+    width: 100%;
+    max-width: 320px;
+  }
+
   .recipe-card img {
     height: 140px;
   }
@@ -253,4 +324,6 @@ body {
     padding: 7px 12px;
   }
 }
+
+
 

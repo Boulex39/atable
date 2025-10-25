@@ -61,7 +61,7 @@ final class CategoryController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
             $this->addFlash('success', 'Catégorie modifiée.');
-            return $this->redirectToRoute('app_category_index');
+            return $this->redirectToRoute('app_admin_dashboard');
         }
 
         return $this->render('category/edit.html.twig', [
@@ -79,7 +79,7 @@ final class CategoryController extends AbstractController
             $this->addFlash('success', 'Catégorie supprimée.');
         }
 
-        return $this->redirectToRoute('app_category_index');
+        return $this->redirectToRoute('app_admin_dashboard');
     }
 }
 
