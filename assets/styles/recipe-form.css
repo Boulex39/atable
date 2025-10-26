@@ -1,5 +1,6 @@
 /* ===============================
-   FORMULAIRE DE RECETTE
+   FORMULAIRE DE RECETTE — "À Table !"
+   Design pastel / moderne / responsive
    =============================== */
 
 .recipe-form {
@@ -11,6 +12,7 @@
   box-shadow: var(--shadow);
 }
 
+/* ====== TITRE ====== */
 .recipe-form h1 {
   text-align: center;
   color: var(--ink);
@@ -19,18 +21,20 @@
   font-weight: 700;
 }
 
-/* === STRUCTURE === */
+/* ====== STRUCTURE ====== */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  max-width: 700px;
   gap: 25px;
+  margin: 0 auto;
 }
 
 .full-width {
   grid-column: 1 / -1;
 }
 
-/* === CHAMPS === */
+/* ====== CHAMPS ====== */
 .form-group label {
   display: block;
   font-weight: 600;
@@ -63,7 +67,7 @@
   box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.3);
 }
 
-/* === Textareas scrollables === */
+/* ====== TEXTAREA SCROLLABLE ====== */
 .textarea-field.scrollable {
   resize: none;
   min-height: 120px;
@@ -71,7 +75,18 @@
   overflow-y: auto;
 }
 
-/* === Fichier === */
+.textarea-field.scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+.textarea-field.scrollable::-webkit-scrollbar-thumb {
+  background: var(--brand-solid);
+  border-radius: 8px;
+}
+.textarea-field.scrollable::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-dark);
+}
+
+/* ====== FICHIER ====== */
 .file-input {
   background-color: #fff0f5;
   border: 2px dashed var(--brand-dark);
@@ -85,7 +100,7 @@
   border-color: var(--brand);
 }
 
-/* === Boutons === */
+/* ====== ACTIONS ====== */
 .form-actions {
   display: flex;
   justify-content: center;
@@ -123,15 +138,67 @@
   transform: translateY(-1px);
 }
 
-/* === Responsive === */
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+
+/* === Tablette ≤ 992px === */
+@media (max-width: 992px) {
+  .recipe-form {
+    padding: 30px;
+    margin: 50px auto;
+  }
+
+  .recipe-form h1 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+
+  .form-grid {
+    gap: 20px;
+    max-width: 90%;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* === Mobile ≤ 768px === */
 @media (max-width: 768px) {
   .recipe-form {
-    padding: 25px;
+    padding: 25px 18px;
+    margin: 40px auto;
   }
 
   .recipe-form h1 {
     font-size: 1.6rem;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .input-field,
+  .select-field,
+  .textarea-field,
+  .file-input {
+    font-size: 0.95rem;
+    padding: 10px 12px;
+  }
+
+  .textarea-field.scrollable {
+    min-height: 110px;
+    max-height: 220px;
   }
 
   .form-actions {
@@ -142,6 +209,39 @@
   .btn-primary,
   .btn-secondary {
     width: 100%;
-    text-align: center;
+    font-size: 0.95rem;
   }
 }
+
+/* === Petit mobile ≤ 480px === */
+@media (max-width: 480px) {
+  .recipe-form {
+    padding: 20px 15px;
+    margin: 30px auto;
+  }
+
+  .recipe-form h1 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+
+  .input-field,
+  .select-field,
+  .textarea-field,
+  .file-input {
+    font-size: 0.9rem;
+    padding: 9px 10px;
+  }
+
+  .textarea-field.scrollable {
+    min-height: 90px;
+    max-height: 180px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    font-size: 0.9rem;
+    padding: 9px 14px;
+  }
+}
+

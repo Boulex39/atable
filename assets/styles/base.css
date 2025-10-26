@@ -10,16 +10,12 @@
 
 /* Variables du thème */
 :root {
-  --brand: rgba(255, 182, 193, 0.85);
-  /* rose clair semi-transparent */
-  --brand-solid: #ffb6c1;
-  /* rose clair opaque */
-  --brand-dark: #e48c9b;
-  /* hover */
-  --ink: #2c3e50;
-  /* texte sombre */
-  --muted: #6b7280;
-  /* texte secondaire */
+  --brand: rgba(255, 182, 193, 0.85); /* rose clair semi-transparent */
+  --brand-solid: #ffb6c1; /* rose clair opaque */
+  --brand-dark: #e48c9b; /* hover */
+  --brand-dark-dark: #C14E61; /* rose foncé */
+  --ink: #2c3e50; /* texte sombre */
+  --muted: #6b7280; /* texte secondaire */
   --bg: #fafafa;
   --white: #fff;
   --blur: 10px;
@@ -27,16 +23,15 @@
   --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-html,
-body {
-  height: 100%;
-}
-
 /* Reset */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
@@ -57,10 +52,10 @@ body {
 }
 
 /* ===============================
-   BOUTON BURGER — Dans le main
+   BOUTON BURGER — Responsive
    =============================== */
 .burger {
-  display: none; /* caché en desktop */
+  display: none;
   position: absolute;
   top: 18px;
   right: 18px;
@@ -70,9 +65,11 @@ body {
   border: none;
   background: none;
   z-index: 200;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  padding: 6px;
 }
 
-/* Barres du burger */
 .burger span {
   display: block;
   width: 100%;
@@ -83,16 +80,7 @@ body {
   transition: all 0.3s ease;
 }
 
-/* Pour qu'on le voie toujours, même sur fond clair */
-.burger {
-  background-color: rgba(0, 0, 0, 0.05);
-  border-radius: 6px;
-  padding: 6px;
-}
-
-
-
-/* Animation croix quand actif */
+/* Animation croix */
 .burger.active span:nth-child(1) {
   transform: rotate(45deg) translate(5px, 5px);
 }
@@ -102,8 +90,6 @@ body {
 .burger.active span:nth-child(3) {
   transform: rotate(-45deg) translate(6px, -6px);
 }
-
-
 
 /* ===============================
    HEADER — NAVBAR TRANSPARENTE
@@ -120,7 +106,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 30px 20px;
   flex-wrap: wrap;
   gap: 10px;
 }
@@ -141,7 +127,10 @@ body {
   transform: scale(1.05);
 }
 
-/* Barre de recherche responsive */
+/* ===============================
+   BARRE DE RECHERCHE
+   =============================== */
+
 .site-header .search-form {
   display: flex;
   align-items: center;
@@ -151,7 +140,7 @@ body {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
   flex: 1;
   min-width: 220px;
-  max-width: 380px;
+  max-width: 600px;
 }
 
 .site-header .search-form input {
@@ -169,22 +158,27 @@ body {
   color: #888;
 }
 
-.site-header .search-form button {
-  background: var(--brand-solid);
+/* Loupe SVG minimaliste */
+.search-btn {
+  background: none;
   border: none;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 0 999px 999px 0;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 14px;
   cursor: pointer;
-  font-size: 1.1rem;
-  transition: background 0.2s;
+  transition: transform 0.1s ease, color 0.2s ease;
 }
 
-.site-header .search-form button:hover {
-  background: var(--brand-dark);
+.search-btn:hover {
+  color: var(--brand-dark-dark);
+  transform: scale(1.1);
 }
 
-/* Zone utilisateur */
+/* ===============================
+   ZONE UTILISATEUR
+   =============================== */
 .user-area {
   display: flex;
   align-items: center;
@@ -195,7 +189,7 @@ body {
 
 .user-area a {
   text-decoration: none;
-  color: var(--ink);
+  color: #C14E61;
   padding: 6px 10px;
   border-radius: 10px;
   transition: background-color .15s ease, color .15s ease;
@@ -214,13 +208,13 @@ body {
 }
 
 .user-area span strong {
-  color: var(--brand-dark);
+  color: var(--brand-dark-dark);
 }
 
 .admin-link {
   background: var(--brand-solid);
   color: var(--white) !important;
-  border-radius: 999px;
+  border-radius: 25px;
   font-weight: 600;
   padding: 6px 16px;
   transition: 0.2s;
@@ -228,13 +222,12 @@ body {
 
 .admin-link:hover {
   background: var(--brand-dark);
-  color: var(--white) !important;
+  color: var(--brand-dark-dark) !important;
 }
 
 /* ===============================
    CONTENU PRINCIPAL
    =============================== */
-
 .site-main {
   flex: 1;
   flex-direction: column;
@@ -278,52 +271,22 @@ button:active {
 }
 
 .btn-danger {
-  background: #ef4444;
+  background: #e48c9b;
+  padding: 10px 0;
 }
-
 .btn-danger:hover {
-  background: #dc2626;
-}
-
-/* Flash messages */
-[class^="flash-"],
-[class*=" flash-"] {
-  padding: 12px 16px;
-  border-radius: 12px;
-  margin: 12px 0;
-  background: #f1f5f9;
-  border: 1px solid #e5e7eb;
-  color: #374151;
-}
-
-.flash-success {
-  background: #ecfdf5;
-  border-color: #34d39940;
-  color: #065f46;
-}
-
-.flash-error {
-  background: #fef2f2;
-  border-color: #f8717140;
-  color: #991b1b;
-}
-
-.flash-info {
-  background: #eff6ff;
-  border-color: #60a5fa40;
-  color: #1e40af;
+  background: #e48c9b;
 }
 
 /* ===============================
-   FOOTER — TRANSPARENT ET CENTRÉ
+   FOOTER
    =============================== */
-
 .site-footer {
   backdrop-filter: blur(var(--blur));
   background: var(--brand);
   color: var(--ink);
   text-align: center;
-  padding: 18px 8px;
+  padding: 30px 8px;
   font-size: 0.95rem;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   width: 100%;
@@ -332,7 +295,7 @@ button:active {
 
 .site-footer p {
   margin: 0;
-  color: var(--ink);
+  color: var(--brand-dark-dark);
   font-weight: 500;
 }
 
@@ -350,11 +313,13 @@ input:focus-visible {
    RESPONSIVE DESIGN
    =============================== */
 
-@media (max-width: 960px) {
+/* === Tablette ≤ 992px === */
+@media (max-width: 992px) {
   .site-header {
     flex-direction: column;
     align-items: stretch;
-    gap: 12px;
+    gap: 14px;
+    padding: 20px;
   }
 
   .logo-area {
@@ -364,24 +329,50 @@ input:focus-visible {
   .search-form {
     order: 3;
     width: 100%;
+    max-width: 100%;
   }
 
   .user-area {
     justify-content: center;
     flex-wrap: wrap;
   }
+
+  .site-main {
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+
+  .site-footer {
+    padding: 20px 6px;
+    font-size: 0.9rem;
+  }
 }
 
-
-/* ✅ Visible uniquement sur mobile */
+/* === Mobile ≤ 768px === */
 @media (max-width: 768px) {
   .burger {
     display: block;
   }
 
+  .site-header {
+    flex-direction: column;
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .site-header .search-form {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .search-btn {
+    font-size: 1.1rem;
+    padding: 6px 10px;
+  }
+
   .user-area {
     position: absolute;
-    top: 60px; /* sous le header */
+    top: 60px;
     right: 15px;
     flex-direction: column;
     background: var(--white);
@@ -413,21 +404,38 @@ input:focus-visible {
   .user-area a:last-child {
     border-bottom: none;
   }
-}
-
-
-@media (max-width: 480px) {
-  .site-header {
-    padding: 8px 12px;
-  }
 
   .search-form input {
     font-size: 0.9rem;
-    padding: 8px 10px;
   }
 
-  .search-form button {
-    padding: 8px 12px;
+  .site-footer {
+    padding: 18px 5px;
+  }
+}
+
+/* === Petit mobile ≤ 480px === */
+@media (max-width: 480px) {
+  .site-header {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .site-header .search-form {
+    max-width: 240px;
+  }
+
+  .site-header .search-form input {
+    font-size: 0.85rem;
+  }
+
+  .search-btn {
+    font-size: 1rem;
+    padding: 5px 8px;
+  }
+
+  .site-logo {
+    height: 36px;
   }
 
   .user-area a {
@@ -437,6 +445,6 @@ input:focus-visible {
 
   .site-footer {
     font-size: 0.85rem;
-    padding: 16px 6px;
+    padding: 14px 6px;
   }
 }

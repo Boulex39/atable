@@ -1,0 +1,124 @@
+/* ===============================
+   PAGE — NOUVELLE CATÉGORIE
+   =============================== */
+
+body {
+  background-color: var(--bg);
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  color: var(--ink);
+}
+
+/* ====== Conteneur principal ====== */
+.category-new {
+  max-width: 600px;
+  margin: 60px auto;
+  background: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  padding: 40px 30px;
+  text-align: center;
+}
+
+/* ====== Titre ====== */
+.category-new h1 {
+  color: var(--ink);
+  font-size: 2rem;
+  margin-bottom: 35px;
+  font-weight: 700;
+}
+
+/* ====== Formulaire ====== */
+.category-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: var(--ink);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--brand-dark);
+  box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.3);
+}
+
+/* ====== Bouton principal ====== */
+.btn-add {
+  background-color: var(--brand-solid);
+  color: white;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  width: 100%;
+}
+
+.btn-add:hover {
+  background-color: var(--brand-dark);
+  transform: translateY(-1px);
+}
+
+/* ====== Lien retour ====== */
+.back-link {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 10px 20px;
+  border: 2px solid var(--brand-dark);
+  border-radius: 999px;
+  color: var(--brand-dark);
+  background: transparent;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.back-link:hover {
+  background: var(--brand-dark);
+  color: white;
+  transform: translateY(-1px);
+  text-decoration: none;
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+@media (max-width: 768px) {
+  .category-new {
+    padding: 25px 18px;
+    margin: 30px auto;
+  }
+
+  .category-new h1 {
+    font-size: 1.6rem;
+  }
+
+  .btn-add,
+  .back-link {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .category-new {
+    padding: 20px 15px;
+  }
+
+  .category-new h1 {
+    font-size: 1.4rem;
+  }
+}
+

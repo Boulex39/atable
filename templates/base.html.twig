@@ -23,20 +23,25 @@
     <header class="site-header">
       <div class="logo-area">
         <a href="{{ path('app_home') }}" class="logo-link">
-          <img src="{{ asset('images/logo.png') }}" alt="Logo À table" class="site-logo">
+          <img src="{{ asset('images/Logo1.png') }}" alt="Logo À table" class="site-logo">
         </a>
       </div>
 
       <button class="burger" id="burgerBtn" aria-label="Menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
       {% if route not in ['app_login', 'app_register'] %}
       <form action="{{ path('app_search') }}" method="get" class="search-form">
         <input type="text" name="query" placeholder="Rechercher une recette..." value="{{ app.request.get('query') }}">
-        <button type="submit">🔍</button>
+        <button type="submit" class="search-btn" aria-label="Rechercher">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+            <path
+              d="M10 2a8 8 0 015.293 13.707l4.5 4.5a1 1 0 01-1.414 1.414l-4.5-4.5A8 8 0 1110 2zm0 2a6 6 0 100 12A6 6 0 0010 4z" />
+          </svg>
+        </button>
       </form>
       {% endif %}
 
