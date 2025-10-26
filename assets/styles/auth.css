@@ -1,27 +1,25 @@
 /* === AUTH PAGES (login & register) === */
-
 body {
   background: linear-gradient(135deg, #fdfbfb, #ebedee);
 }
 
 /* ✅ Espace sous le header */
-.auth-wrap{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:calc(100vh - 150px);
-  padding:60px 16px; 
-  margin: auto;             
+.auth-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 150px);
+  padding: 60px 16px;
+  margin: auto;
 }
-
 
 .auth-card {
   background: #fff;
   width: 100%;
-  width: 460px;
+  width: 550px;
   padding: 28px 28px 24px;
   border-radius: 18px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
 }
 
 .auth-title {
@@ -75,7 +73,7 @@ input[type="email"]:focus,
 input[type="text"]:focus,
 input[type="password"]:focus {
   border-color: #e67e22;
-  box-shadow: 0 0 0 3px rgba(230,126,34,.15);
+  box-shadow: 0 0 0 3px rgba(230, 126, 34, .15);
 }
 
 .form-row {
@@ -83,7 +81,7 @@ input[type="password"]:focus {
   gap: 12px;
 }
 
-.form-row > .form-group {
+.form-row>.form-group {
   flex: 1;
 }
 
@@ -113,8 +111,13 @@ input[type="password"]:focus {
   transition: background .2s, transform .02s;
 }
 
-.btn-primary:hover { background: #ca6f1e; }
-.btn-primary:active { transform: translateY(1px); }
+.btn-primary:hover {
+  background: #ca6f1e;
+}
+
+.btn-primary:active {
+  transform: translateY(1px);
+}
 
 .auth-alt {
   text-align: center;
@@ -128,14 +131,120 @@ input[type="password"]:focus {
   text-decoration: none;
 }
 
-.auth-alt a:hover { text-decoration: underline; }
+.auth-alt a:hover {
+  text-decoration: underline;
+}
 
 .auth-card button,
-.auth-card .btn-primary{
+.auth-card .btn-primary {
   background: var(--brand);
 }
+
 .auth-card button:hover,
-.auth-card .btn-primary:hover{
+.auth-card .btn-primary:hover {
   background: var(--brand-dark);
 }
+
+/* ===============================
+   RESPONSIVE DESIGN (3 paliers)
+   =============================== */
+
+/* === Tablette ≤ 992px === */
+@media (max-width: 992px) {
+  .auth-wrap {
+    padding: 60px 20px;
+  }
+
+  .auth-card {
+    max-width: 460px;
+    padding: 32px 26px;
+  }
+
+  .auth-title {
+    font-size: 1.6rem;
+  }
+
+  
+}
+
+/* === Mobile ≤ 768px === */
+@media (max-width: 768px) {
+  .auth-wrap {
+    padding: 40px 16px;
+  }
+
+  .auth-card {
+    max-width: 400px;
+    padding: 26px 22px;
+  }
+
+  .auth-title {
+    font-size: 1.5rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .btn-primary {
+    width: 100%;
+    text-align: center;
+    padding: 12px 0;
+  }
+}
+
+/* === Petit mobile ≤ 480px === */
+@media (max-width: 480px) {
+  html, body {
+    overflow-x: hidden; /* empêche tout débordement */
+  }
+
+  .auth-wrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: calc(100vh - 120px); /* laisse place au header/footer */
+    padding: 30px 12px;
+    margin: 0 auto;
+  }
+
+  .auth-card {
+    width: 100%;
+    max-width: 440px; /* un peu plus large que 400 */
+    padding: 28px 20px;
+    border-radius: 18px;
+    margin: 0 auto; /* bien centré */
+    box-sizing: border-box;
+  }
+
+  .auth-title {
+    font-size: 1.4rem;
+  }
+
+  .auth-sub {
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+  }
+
+  input[type="email"],
+  input[type="text"],
+  input[type="password"] {
+    padding: 12px 12px;
+    font-size: 0.95rem;
+  }
+
+  .btn-primary {
+    font-size: 1rem;
+    padding: 12px 0;
+    width: 100%;
+  }
+
+  .auth-alt {
+    font-size: 0.95rem;
+  }
+}
+
+
 
