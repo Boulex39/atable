@@ -1,21 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier la catégorie{% endblock %}
+{% block title %}Modifier une catégorie - À Table !{% endblock %}
 
 {% block stylesheets %}
-{{ parent() }}
-<link rel="stylesheet" href="{{ asset('styles/admin.css') }}">
+  {{ parent() }}
+  <link rel="stylesheet" href="{{ asset('styles/category.css') }}">
 {% endblock %}
 
 {% block body %}
-<section class="admin-dashboard">
+<section class="category-new">
   <h1>Modifier la catégorie</h1>
 
-  {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">Mettre à jour</button>
+  {{ form_start(form, {'attr': {'class': 'category-form'}}) }}
+    <div class="form-group">
+      {{ form_label(form.name, 'Nom de la catégorie') }}
+      {{ form_widget(form.name, {'attr': {'class': 'input-field'}}) }}
+    </div>
+
+    <button type="submit" class="btn btn-add">Mettre à jour la catégorie</button>
   {{ form_end(form) }}
 
-  <a href="{{ path('app_admin_dashboard') }}" class="back-link">← Retour à la liste</a>
+  <a href="{{ path('app_admin_dashboard') }}" class="back-link">← Retour au tableau de bord</a>
 </section>
 {% endblock %}
+

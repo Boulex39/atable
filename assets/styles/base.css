@@ -10,12 +10,12 @@
 
 /* Variables du thème */
 :root {
-  --brand: rgba(255, 182, 193, 0.85); /* rose clair semi-transparent */
-  --brand-solid: #ffb6c1; /* rose clair opaque */
-  --brand-dark: #e48c9b; /* hover */
-  --brand-dark-dark: #C14E61; /* rose foncé */
-  --ink: #2c3e50; /* texte sombre */
-  --muted: #6b7280; /* texte secondaire */
+  --brand: rgba(255, 182, 193, 0.85); 
+  --brand-solid: #ffb6c1; 
+  --brand-dark: #e48c9b; 
+  --brand-dark-dark: #C14E61; 
+  --ink: #2c3e50; 
+  --muted: #6b7280; 
   --bg: #fafafa;
   --white: #fff;
   --blur: 10px;
@@ -52,7 +52,7 @@ body {
 }
 
 /* ===============================
-   BOUTON BURGER — Responsive
+    BOUTON BURGER-NUGGET-FRITE 
    =============================== */
 .burger {
   display: none;

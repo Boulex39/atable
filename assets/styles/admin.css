@@ -88,7 +88,7 @@ table {
   background-color: var(--white);
   border-radius: 10px;
   overflow: hidden;
-  min-width: 700px;
+  table-layout: auto; /*permet à la table de s’adapter à la largeur */
 }
 
 th, td {

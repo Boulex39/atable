@@ -41,7 +41,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-    # ✅ Routes publiques (aucune connexion requise)
+    #  Routes publiques (aucune connexion requise)
     - { path: ^/$, roles: PUBLIC_ACCESS }                 # Accueil
     - { path: ^/recherche, roles: PUBLIC_ACCESS }         # Page de recherche
     - { path: ^/login, roles: PUBLIC_ACCESS }             # Connexion
@@ -50,13 +50,13 @@ security:
     - { path: ^/recipe/?$, roles: PUBLIC_ACCESS }         # Liste des recettes
     - { path: ^/recipe/\d+$, roles: PUBLIC_ACCESS }       # Détail d’une recette
 
-    # 🔒 Routes protégées
+    #  Routes protégées
     - { path: ^/recipe/new, roles: ROLE_USER }
     - { path: ^/recipe/\d+/(edit|delete), roles: ROLE_USER }
     - { path: ^/category, roles: ROLE_USER }
     - { path: ^/profil, roles: ROLE_USER }
 
-    # 🚫 Tout le reste nécessite d'être connecté
+    #  Tout le reste nécessite d'être connecté
     - { path: ^/, roles: ROLE_USER }
 
 

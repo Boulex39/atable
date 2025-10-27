@@ -44,20 +44,18 @@ final class RecipeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // ✅ Gestion de l’upload
+            
             $imageFile = $form->get('imageFile')->getData();
 
             if ($imageFile) {
-                // nom de fichier unique
+                
                 $newFilename = uniqid() . '.' . $imageFile->guessExtension();
-
-                // déplace le fichier dans /public/uploads/recipes
+            
                 $imageFile->move(
                     $this->getParameter('kernel.project_dir') . '/public/uploads/recipes',
                     $newFilename
                 );
 
-                // enregistre le chemin relatif
                 $recipe->setImageUrl('uploads/recipes/' . $newFilename);
             }
 

@@ -92,6 +92,24 @@ body {
   text-decoration: none;
 }
 
+/* ====== Variante du bouton pour la modification ====== */
+.btn-add[type="submit"],
+button.btn-add {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+}
+
+/* Harmonisation couleur si besoin (identique à .btn-add) */
+.btn-add.update {
+  background-color: var(--brand-dark);
+}
+
+.btn-add.update:hover {
+  background-color: var(--brand-dark-dark);
+}
+
+
 /* ===============================
    RESPONSIVE DESIGN
    =============================== */
