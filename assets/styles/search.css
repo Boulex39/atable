@@ -1,31 +1,7 @@
-.search-form {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  margin-left: auto;
-}
+/* ===============================
+   PAGE RÉSULTATS DE RECHERCHE
+   =============================== */
 
-.search-form input {
-  padding: 6px 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 0.95rem;
-}
-
-.search-form button {
-  background-color: #e84c78;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.search-form button:hover {
-  background-color: #d23d68;
-}
-
-/* Page résultats */
 .search-results {
   max-width: 1100px;
   margin: 40px auto;
@@ -34,17 +10,18 @@
 
 .search-results h1 {
   text-align: center;
-  color: #2c3e50;
+  color: var(--ink);
   margin-bottom: 20px;
 }
 
-.recipe-grid {
+/* Grille & cartes (alignées sur home/profile) */
+.search-results .recipe-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 20px;
 }
 
-.recipe-card {
+.search-results .recipe-card {
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -52,39 +29,41 @@
   transition: 0.2s;
 }
 
-.recipe-card:hover {
+.search-results .recipe-card:hover {
   transform: translateY(-4px);
 }
 
-.recipe-card img {
+.search-results .recipe-card img {
   width: 100%;
   height: 150px;
   object-fit: cover;
 }
 
-.recipe-content {
+.search-results .recipe-content {
   padding: 12px;
 }
 
-.recipe-content h3 {
-  color: #2c3e50;
+.search-results .recipe-content h3 {
+  color: var(--ink);
   margin-bottom: 6px;
 }
 
-.recipe-content p {
+.search-results .recipe-content p {
   color: #666;
   font-size: 0.9rem;
   margin-bottom: 10px;
 }
 
-.btn {
-  background-color: #e84c78;
+/* Bouton */
+.search-results .btn {
+  background-color: var(--brand-solid);
   color: white;
-  padding: 6px 12px;
-  border-radius: 6px;
+  padding: 8px 14px;
+  border-radius: 999px;
   text-decoration: none;
+  display: inline-block;
 }
 
-.btn:hover {
-  background-color: #d23d68;
+.search-results .btn:hover {
+  background-color: var(--brand-dark);
 }

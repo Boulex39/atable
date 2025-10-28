@@ -1,46 +1,40 @@
 /* ===============================
    PAGE PROFIL UTILISATEUR
-   Design pastel / moderne / responsive
    =============================== */
 
 .profile {
   max-width: 1100px;
   margin: 40px auto 0;
   padding: 0 20px 40px;
-  display: block; /* on ne met PAS de flex ici */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* occupe toute la hauteur visible */
+  justify-content: flex-start;
 }
 
-/* ===============================
-   HEADER PROFIL
-   =============================== */
+/* Header du profil */
 .profile-header {
   text-align: center;
   margin-bottom: 25px;
 }
-
 .profile-header h1 {
   font-size: 2rem;
   color: var(--ink);
   margin-bottom: 10px;
 }
-
 .profile-header p {
   color: var(--muted);
   font-size: 1rem;
 }
 
-/* ===============================
-   TRAITS DE SÉPARATION
-   =============================== */
+/* Trait séparateur */
 .profile hr {
   border: none;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   margin: 25px 0;
 }
 
-/* ===============================
-   INFORMATIONS UTILISATEUR
-   =============================== */
+/* Bloc d’informations utilisateur */
 .profile-info {
   background: var(--white);
   border-radius: var(--radius);
@@ -48,21 +42,19 @@
   padding: 28px 60px;
   max-width: 600px;
   margin: 0 auto 35px;
+  flex-grow: 1;
 }
-
 .profile-info h2 {
   color: var(--brand-dark);
   font-size: 1.4rem;
   margin-bottom: 18px;
   text-align: center;
 }
-
 .profile-info ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 .profile-info li {
   margin-bottom: 10px;
   font-size: 1rem;
@@ -71,30 +63,27 @@
   padding-bottom: 8px;
 }
 
+/* Badges */
 .role-badge {
   padding: 4px 10px;
   border-radius: 999px;
   font-weight: 600;
   font-size: 0.9rem;
 }
-
 .role-badge.admin {
   background: var(--brand-solid);
   color: #fff;
 }
-
 .role-badge.user {
   background: #e5e7eb;
   color: #333;
 }
 
-/* ===============================
-   SECTION MES RECETTES PUBLIÉES
-   =============================== */
+/* Bloc des recettes publiées */
 .profile-recipes {
   margin-top: 30px;
+  flex-grow: 1;
 }
-
 .profile-recipes h2 {
   text-align: center;
   font-size: 1.6rem;
@@ -102,7 +91,7 @@
   margin-bottom: 25px;
 }
 
-/* === Grille de recettes === */
+/* Grille de recettes */
 .recipe-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -112,7 +101,7 @@
   margin: 0 auto;
 }
 
-/* === Carte recette === */
+/* Carte de recette */
 .recipe-card {
   background: var(--white);
   border-radius: 14px;
@@ -124,13 +113,12 @@
   max-width: 320px;
   margin: 0 auto;
 }
-
 .recipe-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
-/* === Image recette === */
+/* Image */
 .recipe-card img {
   width: 100%;
   height: 180px;
@@ -139,7 +127,7 @@
   border-bottom: 1px solid #f1f1f1;
 }
 
-/* === Contenu recette === */
+/* Contenu d'une carte */
 .recipe-content {
   padding: 16px;
   display: flex;
@@ -147,14 +135,12 @@
   justify-content: space-between;
   flex-grow: 1;
 }
-
 .recipe-content h3 {
   font-size: 1.2rem;
   margin-bottom: 8px;
   color: var(--ink);
   line-height: 1.3;
 }
-
 .recipe-content p {
   color: #666;
   font-size: 0.95rem;
@@ -162,8 +148,8 @@
   line-height: 1.5;
 }
 
-/* === Bouton action === */
-.btn {
+/* Bouton sur les cartes */
+.profile .btn {
   display: inline-block;
   background-color: var(--brand-solid);
   color: white;
@@ -176,125 +162,139 @@
   width: fit-content;
   align-self: center;
 }
-
-.btn:hover {
+.profile .btn:hover {
   background-color: var(--brand-dark);
   transform: translateY(-2px);
 }
 
-/* ===============================
-   STRUCTURE GLOBALE / FOOTER FIX
-   =============================== */
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.site-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-
-.profile {
-  flex-grow: 1;
-}
-
-.site-footer {
-  margin-top: auto;
-}
-
-/* Supprime les espaces inutiles à la fin du profil */
+/* Dernier élément sans marge bas */
 .profile > *:last-child {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
 }
 
 /* ===============================
-   RESPONSIVE DESIGN
+   Responsive design
    =============================== */
 
-/* TABLETTES (≤ 992px) */
+/* Tablette moyenne ≤992px */
 @media (max-width: 992px) {
   .profile {
     padding: 0 16px 30px;
   }
-
   .profile-header h1 {
     font-size: 1.8rem;
   }
-
   .profile-info {
     padding: 25px;
   }
-
   .recipe-grid {
     gap: 20px;
   }
-
   .recipe-card {
     max-width: 280px;
   }
-
   .recipe-card img {
     height: 160px;
   }
 }
 
-/* MOBILES (≤ 768px) */
+/* Tablette et mobile paysage ≤768px */
 @media (max-width: 768px) {
   .profile {
     margin: 20px auto 0;
   }
-
   .profile-header h1 {
     font-size: 1.6rem;
   }
-
   .profile-info {
     margin-bottom: 30px;
     padding: 20px;
   }
-
   .profile-info h2 {
     font-size: 1.2rem;
   }
-
   .recipe-card {
     max-width: 360px;
     margin: 0 auto;
   }
-
   .recipe-content h3 {
     font-size: 1.05rem;
   }
-
   .recipe-content p {
     font-size: 0.9rem;
   }
-
-  .btn {
+  .profile .btn {
     padding: 8px 14px;
     font-size: 0.9rem;
   }
 }
 
-/* PETITS TÉLÉPHONES (≤ 480px) */
+/* Mobile ≤480px */
 @media (max-width: 480px) {
   .profile-header h1 {
     font-size: 1.4rem;
   }
-
   .profile-info {
     padding: 16px;
   }
-
   .profile-info li {
     font-size: 0.9rem;
   }
+  .recipe-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .recipe-card {
+    width: 100%;
+    max-width: 320px;
+  }
+  .recipe-card img {
+    height: 140px;
+  }
+  .recipe-content {
+    padding: 12px;
+  }
+  .recipe-content h3 {
+    font-size: 1rem;
+  }
+  .profile .btn {
+    font-size: 0.85rem;
+    padding: 7px 12px;
+  }
+}
 
+/* Conteneur principal s'étendant verticalement */
+.profile-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Passage en colonne entre 480px et 891px */
+@media (max-width: 891px) and (min-width: 480px) {
+  .recipe-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .recipe-card {
+    width: 90%;
+    max-width: 360px;
+  }
+
+  .profile {
+    padding-bottom: 40px; /* espace avant footer */
+  }
+}
+
+/* Petits écrans ≤480px */
+@media (max-width: 480px) {
   .recipe-grid {
     display: flex;
     flex-direction: column;
@@ -304,26 +304,7 @@ body {
 
   .recipe-card {
     width: 100%;
-    max-width: 320px;
-  }
-
-  .recipe-card img {
-    height: 140px;
-  }
-
-  .recipe-content {
-    padding: 12px;
-  }
-
-  .recipe-content h3 {
-    font-size: 1rem;
-  }
-
-  .btn {
-    font-size: 0.85rem;
-    padding: 7px 12px;
+    max-width: 340px;
   }
 }
-
-
 

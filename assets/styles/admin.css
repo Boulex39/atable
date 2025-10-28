@@ -1,14 +1,6 @@
 /* ===============================
    PAGE ADMIN (Catégories + Utilisateurs)
-   Adapté à base.css pastel / moderne / responsive
    =============================== */
-
-   /* Variables du thème */
-:root {
-  --brand: rgba(255, 182, 193, 0.85);   /* rose clair semi-transparent */
-  --brand-solid: #ffb6c1;               /* rose clair opaque */
-  --brand-dark: #e48c9b;                /* hover */
-}
 
 /* Structure principale */
 .admin-dashboard {
@@ -23,7 +15,7 @@
   flex: 1;
 }
 
-/* ===== TITRE PRINCIPAL ===== */
+/* Titres */
 .admin-dashboard h1 {
   text-align: center;
   color: var(--ink);
@@ -32,7 +24,6 @@
   font-weight: 700;
 }
 
-/* ===== BLOCS SECTIONS ===== */
 .admin-block {
   margin-bottom: 60px;
 }
@@ -46,7 +37,7 @@
   padding-bottom: 8px;
 }
 
-/* ===== BOUTON D’AJOUT ===== */
+/* Bouton d’ajout */
 .actions-top {
   display: flex;
   justify-content: flex-end;
@@ -64,22 +55,21 @@
   font-weight: 500;
   font-size: 0.95rem;
   transition: background-color 0.2s ease, transform 0.15s ease;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
+
 .btn-add:hover {
   background-color: var(--brand-dark);
   transform: translateY(-2px);
 }
 
-/* ===============================
-   TABLEAUX
-   =============================== */
+/* Tableaux */
 .table-wrapper {
   width: 100%;
   overflow-x: auto;
   border-radius: 10px;
   background: var(--white);
-  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
 }
 
 table {
@@ -88,10 +78,11 @@ table {
   background-color: var(--white);
   border-radius: 10px;
   overflow: hidden;
-  table-layout: auto; /*permet à la table de s’adapter à la largeur */
+  table-layout: auto;
 }
 
-th, td {
+th,
+td {
   border-bottom: 1px solid #eee;
   padding: 14px 20px;
   text-align: left;
@@ -111,14 +102,11 @@ td {
 }
 
 tr:hover {
-  background-color: rgba(255, 182, 193, 0.12); /* rose clair transparent */
+  background-color: rgba(255, 182, 193, 0.12);
   transition: background-color 0.25s ease;
 }
 
-/* ===============================
-   BOUTONS D’ACTION UNIFORMES
-   =============================== */
-
+/* Boutons d’action */
 .btn-view,
 .btn-edit,
 .btn-delete,
@@ -135,23 +123,23 @@ tr:hover {
   border: none;
 }
 
-/* Voir : gris clair */
 .btn-view {
   background-color: #f1f5f9;
   color: #111;
 }
+
 .btn-view:hover {
   background-color: #e2e8f0;
   transform: translateY(-1px);
 }
 
-/* Modifier / Supprimer / Petits boutons : rose unifié */
 .btn-edit,
 .btn-delete,
 .btn-small {
   background-color: var(--brand-solid);
   color: #fff;
 }
+
 .btn-edit:hover,
 .btn-delete:hover,
 .btn-small:hover {
@@ -159,39 +147,7 @@ tr:hover {
   transform: translateY(-1px);
 }
 
-/* ===============================
-   TABLE UTILISATEURS
-   =============================== */
-
-.user-table select {
-  padding: 6px 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 0.9rem;
-  background-color: var(--white);
-  transition: border-color 0.2s;
-}
-.user-table select:focus {
-  outline: none;
-  border-color: var(--brand-dark);
-  box-shadow: 0 0 0 3px rgba(228, 140, 155, 0.2);
-}
-
-/* ===============================
-   ACCESSIBILITÉ
-   =============================== */
-a:focus-visible,
-button:focus-visible,
-input:focus-visible,
-select:focus-visible {
-  outline: 3px solid rgba(228, 140, 155, 0.5);
-  outline-offset: 2px;
-}
-
-/* ===============================
-   BADGES DE RÔLE + FORMULAIRES UTILISATEURS
-   =============================== */
-
+/* Badges & formulaires */
 .admin-dashboard .role-badge {
   display: inline-block;
   padding: 4px 10px;
@@ -233,12 +189,16 @@ select:focus-visible {
   box-shadow: 0 0 0 3px rgba(228, 140, 155, 0.2);
 }
 
+/* Accessibilité */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(228, 140, 155, 0.5);
+  outline-offset: 2px;
+}
 
-/* ===============================
-   RESPONSIVE DESIGN
-   =============================== */
-
-/* GRANDES TABLETTES (≤ 960px) */
+/* Responsive */
 @media (max-width: 960px) {
   .admin-dashboard {
     padding: 40px 30px;
@@ -254,7 +214,8 @@ select:focus-visible {
     font-size: 1.3rem;
   }
 
-  th, td {
+  th,
+  td {
     font-size: 0.9rem;
     padding: 12px 14px;
   }
@@ -269,7 +230,6 @@ select:focus-visible {
   }
 }
 
-/* MOBILES (≤ 768px) */
 @media (max-width: 768px) {
   .admin-dashboard {
     padding: 28px 20px;
@@ -285,7 +245,8 @@ select:focus-visible {
     margin-bottom: 40px;
   }
 
-  th, td {
+  th,
+  td {
     font-size: 0.85rem;
     padding: 10px 12px;
   }
@@ -316,42 +277,8 @@ select:focus-visible {
   }
 }
 
-/* PETITS TÉLÉPHONES (≤ 480px) */
-@media (max-width: 480px) {
-  .admin-dashboard {
-    padding: 20px 16px;
-  }
-
-  .admin-dashboard h1 {
-    font-size: 1.4rem;
-  }
-
-  .btn-add {
-    padding: 10px 14px;
-    font-size: 0.9rem;
-  }
-
-  table {
-    min-width: unset;
-  }
-
-  th, td {
-    font-size: 0.8rem;
-    padding: 8px 10px;
-  }
-
-  .btn-view,
-  .btn-edit,
-  .btn-delete,
-  .btn-small {
-    margin-right: 4px;
-  }
-}
-
-/* ===============================
-   MODE FICHE (TABLEAUX -> LISTE) POUR PETITS ÉCRANS
-   =============================== */
 @media (max-width: 680px) {
+
   .admin-dashboard table,
   .admin-dashboard thead,
   .admin-dashboard tbody,
@@ -363,7 +290,7 @@ select:focus-visible {
   }
 
   .admin-dashboard thead {
-    display: none; /* on masque l’en-tête */
+    display: none;
   }
 
   .admin-dashboard tr {
@@ -404,8 +331,23 @@ select:focus-visible {
   }
 }
 
+@media (max-width: 480px) {
+  .admin-dashboard {
+    padding: 20px 16px;
+  }
 
+  .admin-dashboard h1 {
+    font-size: 1.4rem;
+  }
 
+  .btn-add {
+    padding: 10px 14px;
+    font-size: 0.9rem;
+  }
 
-
-
+  th,
+  td {
+    font-size: 0.8rem;
+    padding: 8px 10px;
+  }
+}

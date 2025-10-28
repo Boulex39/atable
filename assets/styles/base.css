@@ -1,6 +1,5 @@
 /* ===============================
-   Thème global "À Table !"
-   Version pastel / moderne / responsive
+   Thème global 
    =============================== */
 
 /* Cache la nav sur /login et /register */
@@ -330,6 +329,7 @@ input:focus-visible {
     order: 3;
     width: 100%;
     max-width: 100%;
+    margin: auto;
   }
 
   .user-area {

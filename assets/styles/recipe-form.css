@@ -1,6 +1,5 @@
 /* ===============================
-   FORMULAIRE DE RECETTE — "À Table !"
-   Design pastel / moderne / responsive
+   FORMULAIRE DE RECETTE
    =============================== */
 
 .recipe-form {
@@ -12,7 +11,7 @@
   box-shadow: var(--shadow);
 }
 
-/* ====== TITRE ====== */
+/* Titre */
 .recipe-form h1 {
   text-align: center;
   color: var(--ink);
@@ -21,7 +20,7 @@
   font-weight: 700;
 }
 
-/* ====== STRUCTURE ====== */
+/* Grille */
 .form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -34,7 +33,7 @@
   grid-column: 1 / -1;
 }
 
-/* ====== CHAMPS ====== */
+/* Champs */
 .form-group label {
   display: block;
   font-weight: 600;
@@ -67,7 +66,7 @@
   box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.3);
 }
 
-/* ====== TEXTAREA SCROLLABLE ====== */
+/* Textarea scrollable */
 .textarea-field.scrollable {
   resize: none;
   min-height: 120px;
@@ -78,15 +77,17 @@
 .textarea-field.scrollable::-webkit-scrollbar {
   width: 8px;
 }
+
 .textarea-field.scrollable::-webkit-scrollbar-thumb {
   background: var(--brand-solid);
   border-radius: 8px;
 }
+
 .textarea-field.scrollable::-webkit-scrollbar-thumb:hover {
   background: var(--brand-dark);
 }
 
-/* ====== FICHIER ====== */
+/* Fichier */
 .file-input {
   background-color: #fff0f5;
   border: 2px dashed var(--brand-dark);
@@ -100,7 +101,7 @@
   border-color: var(--brand);
 }
 
-/* ====== ACTIONS ====== */
+/* Actions */
 .form-actions {
   display: flex;
   justify-content: center;
@@ -138,11 +139,7 @@
   transform: translateY(-1px);
 }
 
-/* ===============================
-   RESPONSIVE DESIGN
-   =============================== */
-
-/* === Tablette ≤ 992px === */
+/* Responsive */
 @media (max-width: 992px) {
   .recipe-form {
     padding: 30px;
@@ -171,7 +168,6 @@
   }
 }
 
-/* === Mobile ≤ 768px === */
 @media (max-width: 768px) {
   .recipe-form {
     padding: 25px 18px;
@@ -213,7 +209,6 @@
   }
 }
 
-/* === Petit mobile ≤ 480px === */
 @media (max-width: 480px) {
   .recipe-form {
     padding: 20px 15px;
@@ -244,4 +239,3 @@
     padding: 9px 14px;
   }
 }
-
